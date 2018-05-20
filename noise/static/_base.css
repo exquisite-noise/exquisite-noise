@@ -301,7 +301,7 @@ body {
   margin: 10px;
   font-family: Helvetica, sans-serif;
   color: #fff;
-  background-color: #03012C;
+  background-color: #000;
   text-align: center; }
 
 h1 {
@@ -327,3 +327,5 @@ nav li {
   display: inline;
   padding: 7px;
   font-size: 35px; }
+
+/*# sourceMappingURL=../../../../../../../../../../static/_base.css.map */
