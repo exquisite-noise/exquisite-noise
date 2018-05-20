@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeView.as_view(), name='home'),
     path('profile/', include('noise_profile.urls')),
-
+    path('accounts/', include('registration.backends.hmac.urls')),
 ]
 
 if settings.DEBUG:  # pragma: no cover
