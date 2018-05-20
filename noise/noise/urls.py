@@ -23,6 +23,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeView.as_view(), name='home'),
+    path('profile/', include('noise_profile.urls')),
+
 ]
 
 if settings.DEBUG:  # pragma: no cover
