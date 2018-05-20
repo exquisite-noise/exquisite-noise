@@ -1,0 +1,13 @@
+nav {
+
+    ul {
+        text-align: center;
+        list-style-type: none;
+    }
+
+    li {
+        display: inline;
+        padding: 7px;
+        font-size: $font * .7;
+    }
+}

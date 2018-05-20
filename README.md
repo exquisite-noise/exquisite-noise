@@ -37,3 +37,4 @@ Python 3, Django 2, CSS/SCSS, HTML, PostgreSQL, Travis CI, Coveralls
 ## Resources
 - gitignore.io
 - editorconfig.org
+- github.com/necolas/normalize.css

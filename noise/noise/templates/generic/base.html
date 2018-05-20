@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+{% load static %}
+{% load sass_tags %}
+
+<html lang="en">
+<head>
+  <link href="{% sass_src '_base.scss' %}" rel="stylesheet" type="text/css" />
+  <title>Exquisite Noise</title>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="{% url "home" %}">Home</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    {% block content %}
+    <h3>No Content</h3>
+    {% endblock content%}
+  </main>
+</body>
+</html>
