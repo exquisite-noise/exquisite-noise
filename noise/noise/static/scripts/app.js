@@ -1,0 +1,247 @@
+// set up basic variables for app
+
+var record = document.querySelector('.record');
+var stop = document.querySelector('.stop');
+var post = document.querySelector('.post');
+var soundClips = document.querySelector('.sound-clips');
+var canvas = document.querySelector('.visualizer');
+var mainSection = document.querySelector('.main-controls');
+
+// disable stop button while not recording
+
+
+stop.disabled = true;
+
+// visualiser setup - create web audio api context and canvas
+
+var audioCtx = new (window.AudioContext || webkitAudioContext)();
+var canvasCtx = canvas.getContext('2d');
+
+//main block for doing the audio recording
+
+if (navigator.mediaDevices.getUserMedia) {
+  console.log('getUserMedia supported.');
+
+  var constraints = { audio: true };
+  var chunks = [];
+
+  var onSuccess = function(stream) {
+    var mediaRecorder = new MediaRecorder(stream);
+
+    visualize(stream);
+
+    function removeElementsByClass(className){
+      var elements = document.getElementsByClassName(className);
+      while(elements.length > 0){
+        elements[0].parentNode.removeChild(elements[0]);
+      }
+    }
+
+    record.onclick = function() {
+      removeElementsByClass('clip');
+      mediaRecorder.start();
+      console.log(mediaRecorder.state);
+      console.log('recorder started');
+      record.style.background = 'red';
+
+      stop.disabled = false;
+      record.disabled = true;
+    };
+
+    stop.onclick = function() {
+      mediaRecorder.stop();
+      record.textContent = 'Re-Record';
+      console.log(mediaRecorder.state);
+      console.log('recorder stopped');
+      record.style.background = '';
+      record.style.color = '';
+      // mediaRecorder.requestData();
+
+      stop.disabled = true;
+      record.disabled = false;
+    };
+    
+    post.onclick = function() {
+      httpGet('http://127.0.0.1:8081')
+    };
+    
+    var httpGet = function (theUrl) {
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.open( 'GET', theUrl, false ); // false for synchronous request
+      xmlHttp.send( null );
+      console.log('ran httpGet function to reuqestcatcher')
+      return xmlHttp.responseText;
+    }
+
+    mediaRecorder.onstop = function(e) {
+      console.log('data available after MediaRecorder.stop() called.');
+
+      var clipName = prompt('Enter a name for your sound clip?','My unnamed clip');
+      console.log(clipName);
+      var clipContainer = document.createElement('article');
+      var clipLabel = document.createElement('p');
+      var audio = document.createElement('audio');
+      var deleteButton = document.createElement('button');
+     
+      clipContainer.classList.add('clip');
+      audio.setAttribute('controls', '');
+      deleteButton.textContent = 'Delete';
+      deleteButton.className = 'delete';
+
+      if(clipName === null) {
+        clipLabel.textContent = 'My unnamed clip';
+      } else {
+        clipLabel.textContent = clipName;
+      }
+
+      clipContainer.appendChild(audio);
+      clipContainer.appendChild(clipLabel);
+      clipContainer.appendChild(deleteButton);
+      soundClips.appendChild(clipContainer);
+
+      audio.controls = true;
+      var blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
+      chunks = [];
+
+      // POST request the audio information down to server
+      // audio blob, title, username or id,
+
+
+
+      var audioURL = window.URL.createObjectURL(blob);
+      console.log(audioURL)
+      audio.src = audioURL;
+      console.log('recorder stopped');
+
+      deleteButton.onclick = function(e) {
+        evtTgt = e.target;
+        evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
+        // postAudio()
+      }
+
+      clipLabel.onclick = function() {
+        var existingName = clipLabel.textContent;
+        var newClipName = prompt('Enter a new name for your sound clip?');
+        if(newClipName === null) {
+          clipLabel.textContent = existingName;
+        } else {
+          clipLabel.textContent = newClipName;
+        }
+      }
+    }
+
+    mediaRecorder.ondataavailable = function(e) {
+      chunks.push(e.data);
+    }
+  }
+
+  var onError = function(err) {
+    console.log('The following error occured: ' + err);
+  }
+
+  navigator.mediaDevices.getUserMedia(constraints)
+    .then(onSuccess, onError)
+    .then(console.log('finished recording clip'));
+
+    
+    
+} else {
+  console.log('getUserMedia not supported on your browser!');
+}
+  
+  
+  
+  
+function visualize(stream) {
+  var source = audioCtx.createMediaStreamSource(stream);
+  
+  var analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 2048;
+  var bufferLength = analyser.frequencyBinCount;
+  var dataArray = new Uint8Array(bufferLength);
+  
+  source.connect(analyser);
+  //analyser.connect(audioCtx.destination);
+  
+  draw();
+  
+  function draw() {
+    const WIDTH = canvas.width;
+    const HEIGHT = canvas.height;
+    
+    requestAnimationFrame(draw);
+    
+    analyser.getByteTimeDomainData(dataArray);
+    
+    canvasCtx.fillStyle = 'rgb(200, 200, 200)';
+    canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
+    
+    canvasCtx.lineWidth = 2;
+    canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
+    
+    canvasCtx.beginPath();
+    
+    var sliceWidth = WIDTH * 1.0 / bufferLength;
+    var x = 0;
+    
+    
+    for(var i = 0; i < bufferLength; i++) {
+      
+      var v = dataArray[i] / 128.0;
+      var y = v * HEIGHT / 2;
+      
+      if(i === 0) {
+        canvasCtx.moveTo(x, y);
+      } else {
+        canvasCtx.lineTo(x, y);
+      }
+      
+      x += sliceWidth;
+    }
+
+    canvasCtx.lineTo(canvas.width, canvas.height / 2);
+    canvasCtx.stroke();
+
+  }
+}
+
+window.onresize = function() {
+  canvas.width = mainSection.offsetWidth;
+};
+
+window.onresize();
+  
+
+
+
+
+
+// var postAudio = function() {
+//     /// *** request code
+//     console.log('ran postAudio function');
+//     var http = require('http');
+//     var options = {
+//       hostname: 'http://exquisite-noise.requestcatcher.com/',
+//       port: 80,
+//       path: '/test',
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'text/plain',
+//       }
+//     };
+//     var req = http.request(options, function(res) {
+//       console.log('Status: ' + res.statusCode);
+//       console.log('Headers: ' + JSON.stringify(res.headers));
+//       res.setEncoding('utf8');
+//       res.on('data', function (body) {
+//         console.log('Body: ' + body);
+//       });
+//     });
+//     req.on('error', function(e) {
+//       console.log('problem with request: ' + e.message);
+//     });
+//     // write data to request body
+//     req.write(`{'string': 'Hello, World'}`);
+//     req.end();
+//     /// *** request code
+//   }
