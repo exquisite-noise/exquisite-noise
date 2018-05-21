@@ -1,0 +1,12 @@
+{% extends 'generic/base.html' %}
+
+{% block content %}
+<div class="add-new-audio container">
+  <h2>Start new story!</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit"/>
+  </form>
+</div>
+{% endblock %}
