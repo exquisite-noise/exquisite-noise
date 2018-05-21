@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'coverage',
     'noise',
+    'noise_audio',
     'noise_profile',
     'sass_processor',
 ]
