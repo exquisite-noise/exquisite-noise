@@ -7,6 +7,8 @@
 
 **Version**: 1.0.0
 
+[![Build Status](https://travis-ci.org/exquisite-noise/exquisite-noise.svg?branch=master)](https://travis-ci.org/exquisite-noise/exquisite-noise) [![Coverage Status](https://coveralls.io/repos/github/exquisite-noise/exquisite-noise/badge.svg?branch=master)](https://coveralls.io/github/exquisite-noise/exquisite-noise?branch=master)
+
 ## Overview
 <!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for a Code Fellows 401 class. (i.e. What's your problem domain?) -->
 
@@ -32,8 +34,9 @@ Python 3, Django 2, CSS/SCSS, HTML, PostgreSQL, Travis CI, Coveralls
 | 5-23-2018 | Stuff |
 | 5-22-2018 | Stuff |
 | 5-21-2018 | Stuff |
-| 5-19-2018 | Initial Setup |
+| 5-19-2018 | Initial Setup, install Django, create base home page with base css files, make profile component, install registration for user accounts, prepare for coveralls and travis |
 
 ## Resources
 - gitignore.io
 - editorconfig.org
+- github.com/necolas/normalize.css

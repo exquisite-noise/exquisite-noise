@@ -1,0 +1,27 @@
+body {
+    margin: 10px;
+    font-family: Helvetica, sans-serif;
+    color: $white;
+    background-color: $black;
+    text-align: center;
+}
+
+h1 {
+    font-size: $font;
+}
+
+h2 {
+    font-size: $font * .9;
+}
+
+h3 {
+    font-size: $font * .8;
+}
+
+h4 {
+    font-size: $font * .7;
+}
+
+p {
+    font-size: $font * .5;
+}
