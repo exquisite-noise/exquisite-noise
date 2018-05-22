@@ -32,8 +32,8 @@ Python 3, Django 2, CSS/SCSS, HTML, PostgreSQL, Travis CI, Coveralls
 | 5-25-2018 | Final Presentation |
 | 5-24-2018 | Stuff |
 | 5-23-2018 | Stuff |
-| 5-22-2018 | Stuff |
-| 5-21-2018 | Connect Travis and Coveralls |
+| 5-22-2018 | Able to record audio files and add to database |
+| 5-21-2018 | Connect Travis and Coveralls; able to upload sound files and add to database |
 | 5-19-2018 | Initial Setup, install Django, create base home page with base css files, make profile component, install registration for user accounts, prepare for coveralls and travis |
 
 ## Resources
@@ -42,3 +42,5 @@ Python 3, Django 2, CSS/SCSS, HTML, PostgreSQL, Travis CI, Coveralls
 - github.com/necolas/normalize.css
 - github.com/jiaaro/pydub/
 - github.com/pygame/pygame
+- github.com/jrief/django-sass-processor
+- github.com/voxy/django-audio-recorder
