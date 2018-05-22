@@ -4,10 +4,10 @@ from .models import Audio
 
 
 class AudioFileForm(forms.ModelForm):
-    """."""
+    """Audio File Form."""
 
     class Meta:
-        """."""
+        """Meta."""
 
         model = Audio
         fields = ['topic', 'path']
