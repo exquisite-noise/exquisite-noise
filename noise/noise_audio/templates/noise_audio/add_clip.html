@@ -4,6 +4,13 @@
 
 <div class="add-new-audio container">
   <h2>Play clip and continue the story!</h2>
+
+  {% if story.topic %}
+  <h4>{{story.topic}}</h4>
+  {% endif %}
+
+  <audio src="{{story.path.url}}" controls loop="true"></audio>
+
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
