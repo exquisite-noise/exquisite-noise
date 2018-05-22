@@ -40,3 +40,5 @@ Python 3, Django 2, CSS/SCSS, HTML, PostgreSQL, Travis CI, Coveralls
 - gitignore.io
 - editorconfig.org
 - github.com/necolas/normalize.css
+- github.com/jiaaro/pydub/
+- github.com/pygame/pygame
