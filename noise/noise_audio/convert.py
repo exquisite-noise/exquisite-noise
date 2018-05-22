@@ -5,9 +5,9 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from pydub import AudioSegment
 
 
-def converted(clip):
+def convert(clip):
     """
-    Converts files to mp3 and saves in media directory.
+    Convert files to mp3 and saves in media directory.
     """
     og_clip = AudioSegment.from_file(clip)
 

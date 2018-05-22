@@ -5,7 +5,8 @@ from .models import Audio
 from django.views.generic import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from .convert import converted
+from .convert import convert
+from .concat import concat_clips
 
 
 class NewStoryForm(LoginRequiredMixin, CreateView):
@@ -21,7 +22,7 @@ class NewStoryForm(LoginRequiredMixin, CreateView):
         """Validate form."""
         form.instance.creator = self.request.user
         file_path = form.instance.path
-        form.instance.path = converted(file_path)
+        form.instance.path = convert(file_path)
         form.save()
         form.instance.contributor.add(self.request.user)
         return super().form_valid(form)
@@ -34,7 +35,7 @@ class ContinueStoryForm(LoginRequiredMixin, UpdateView):
     model = Audio
     success_url = reverse_lazy('home')
     login_url = reverse_lazy('auth_login')
-    fields = ['path']
+    fields = ['path', 'concat_path']
     context_object_name = 'story'
     slug_url_kwarg = 'clip_id'
     slug_field = 'id'
@@ -46,6 +47,13 @@ class ContinueStoryForm(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         """Validate form."""
+        # import pdb; pdb.set_trace()
+        form.instance.creator = self.request.user
+
+        new_clip = form.instance.concat_path
+        form.instance.concat_path = concat_clips(form.instance.path,
+                                                 convert(new_clip))
+
         form.instance.contributor.add(self.request.user)
         form.save()
         return super().form_valid(form)

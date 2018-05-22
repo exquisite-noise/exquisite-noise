@@ -1,7 +1,10 @@
 import pygame as pg
 
 
-def play_music2(music_file, volume=0.8):
+def play_music(music_file, volume=0.8):
+    """
+    Play back audio clip to user.
+    """
     freq = 44100
     bitsize = -16
     channels = 2
