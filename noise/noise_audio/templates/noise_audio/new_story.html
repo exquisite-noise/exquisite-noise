@@ -7,12 +7,12 @@
   <div class="wrapper">
 
     <h1>Tyler's Forked Web dictaphone</h1>
+
     <section class="main-controls">
       <canvas class="visualizer" height="60px"></canvas>
       <div id="buttons">
         <button class="record">Record</button>
         <button class="stop">Stop</button>
-        <button class="post">Post</button>
       </div>
     </section>
 
@@ -20,16 +20,13 @@
     </section>
   </div>
   
-  <form method="post" enctype="multipart/form-data">
+  <form method="post" enctype="multipart/form-data" id="new-story-form">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Submit"/>
   </form>
 
-  <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+
   <script src="{% static "scripts/install.js" %}"></script>
   <script src="{% static "scripts/mediaDevices-getUserMedia-polyfill.js" %}"></script>
   <script src="{% static "scripts/app.js" %}"></script>

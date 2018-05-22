@@ -12,10 +12,11 @@ class NewStoryForm(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('home')
     login_url = reverse_lazy('auth_login')
     fields = ['topic', 'path']
-
+    
     def get_form_kwargs(self):
         """Get form kwargs."""
         kwargs = super().get_form_kwargs()
+        # import pdb; pdb.set_trace()
         return kwargs
 
     def form_valid(self, form):
@@ -23,5 +24,6 @@ class NewStoryForm(LoginRequiredMixin, CreateView):
         form.instance.creator = self.request.user
         form.save()
         form.instance.contributor.add(self.request.user)
+        # import pdb; pdb.set_trace()
         return super().form_valid(form)
 

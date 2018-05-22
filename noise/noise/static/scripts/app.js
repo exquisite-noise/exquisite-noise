@@ -38,6 +38,7 @@ if (navigator.mediaDevices.getUserMedia) {
     }
 
     record.onclick = function() {
+
       removeElementsByClass('clip');
       mediaRecorder.start();
       console.log(mediaRecorder.state);
@@ -60,18 +61,7 @@ if (navigator.mediaDevices.getUserMedia) {
       stop.disabled = true;
       record.disabled = false;
     };
-    
-    post.onclick = function() {
-      httpGet('http://127.0.0.1:8081')
-    };
-    
-    var httpGet = function (theUrl) {
-      var xmlHttp = new XMLHttpRequest();
-      xmlHttp.open( 'GET', theUrl, false ); // false for synchronous request
-      xmlHttp.send( null );
-      console.log('ran httpGet function to reuqestcatcher')
-      return xmlHttp.responseText;
-    }
+
 
     mediaRecorder.onstop = function(e) {
       console.log('data available after MediaRecorder.stop() called.');
@@ -82,6 +72,9 @@ if (navigator.mediaDevices.getUserMedia) {
       var clipLabel = document.createElement('p');
       var audio = document.createElement('audio');
       var deleteButton = document.createElement('button');
+      var d = new Date();
+      var n = d.getTime();
+
      
       clipContainer.classList.add('clip');
       audio.setAttribute('controls', '');
@@ -103,13 +96,10 @@ if (navigator.mediaDevices.getUserMedia) {
       var blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
       chunks = [];
 
-      // POST request the audio information down to server
-      // audio blob, title, username or id,
-
-
-
       var audioURL = window.URL.createObjectURL(blob);
-      console.log(audioURL)
+      console.log(audioURL);
+
+
       audio.src = audioURL;
       console.log('recorder stopped');
 
@@ -133,6 +123,22 @@ if (navigator.mediaDevices.getUserMedia) {
     mediaRecorder.ondataavailable = function(e) {
       chunks.push(e.data);
     }
+
+    var sendData = function () {
+      var formEl = document.getElementById('new-story-form');
+      var formData = new FormData(formEl);
+      formData.append('blob_path', blob, `${n}.ogg`);
+  
+      // for (let key of formData.keys()) {
+      //   console.log(key);
+      // }
+      // debugger
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', 'http://127.0.0.1:8000/audio/new');
+      xhr.send(formData);
+    }
+      
+
   }
 
   var onError = function(err) {
@@ -143,14 +149,10 @@ if (navigator.mediaDevices.getUserMedia) {
     .then(onSuccess, onError)
     .then(console.log('finished recording clip'));
 
-    
-    
+
 } else {
   console.log('getUserMedia not supported on your browser!');
 }
-  
-  
-  
   
 function visualize(stream) {
   var source = audioCtx.createMediaStreamSource(stream);
