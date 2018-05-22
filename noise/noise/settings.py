@@ -38,9 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'coverage',
+    'ffmpy',
     'noise',
     'noise_audio',
     'noise_profile',
+    'pydub',
+    'pygame',
     'sass_processor',
 ]
 
