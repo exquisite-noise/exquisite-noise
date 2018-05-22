@@ -16,6 +16,23 @@ class NewStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView):
     login_url = reverse_lazy('auth_login')
     # fields = ['topic', 'path']
 
+    # def post(self, request, *args, **kwargs):
+    #   import pdb; pdb.set_trace()
+    #   return super().post(request, *args, **kwargs)
+
+    def create_object(self, audio_file):
+        # import pdb; pdb.set_trace()
+        #  create your model instance
+        new = Audio.objects.create(**{
+          self.create_field: audio_file,
+          'topic': self.request.POST['topic'],
+          'creator': self.request.user,
+          # 'contributor': self.request.user,
+          })
+        new.contributor.add(self.request.user)
+
+        return new  # new model instance
+
     def get_form_kwargs(self):
         """Get form kwargs."""
         kwargs = super().get_form_kwargs()
@@ -23,6 +40,7 @@ class NewStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView):
 
     def form_valid(self, form):
         """Validate form."""
+        import pdb; pdb.set_trace()
         form.instance.creator = self.request.user
         form.save()
         form.instance.contributor.add(self.request.user)

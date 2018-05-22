@@ -28,29 +28,32 @@ promise.then(function(stream) {
   };
 
   recorder.onstop = function(event) {
-    var blob = new Blob(this.chunks, {'type': 'audio/wav;'});
+    var blob = new Blob(this.chunks, {'type': 'audio/mpeg;'});
     this.chunks = [];
-    var formData = new FormData();
-    formData.append('audio_file', blob, "replace-me.wav");
+    var formEl = document.getElementById('new-audio-form');
+    var formData = new FormData(formEl);
+    formData.append('audio_file', blob, "story.mp3");
+    // var topicFieldInput = $('#id-topic').val();
+    // formData.append('topic', topicFieldInput);
     $.ajax({
-        type: "POST",
-        url: audioFile.dataset.url,
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function(data){
-            uploadSpan.classList.add('hidden');
-            recordButton.disabled = false;
-            audioFile.value = data.id;
-            audio.src = data.url;
-        },
-        error: function(jqXHR, textStatus, errorThrown){
-            uploadSpan.classList.add('hidden');
-            recordButton.disabled = false;
-            console.error('jqXHR:', jqXHR);
-            console.error('textStatus:', textStatus);
-            console.error('errorThrown:', errorThrown);
-        },
+      type: "POST",
+      url: audioFile.dataset.url,
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(data){
+        uploadSpan.classList.add('hidden');
+        recordButton.disabled = false;
+        audioFile.value = data.id;
+        audio.src = data.url;
+      },
+      error: function(jqXHR, textStatus, errorThrown){
+        uploadSpan.classList.add('hidden');
+        recordButton.disabled = false;
+        console.error('jqXHR:', jqXHR);
+        console.error('textStatus:', textStatus);
+        console.error('errorThrown:', errorThrown);
+      },
     });
 
   };

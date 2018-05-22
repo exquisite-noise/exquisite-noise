@@ -4,7 +4,7 @@
 {% block content %}
 <div class="add-new-audio container">
   <h2>Start new story!</h2>
-  <form method="post" enctype="multipart/form-data">
+  <form method="post" enctype="multipart/form-data" id="new-audio-form">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Submit"/>
