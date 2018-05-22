@@ -4,5 +4,5 @@ from .views import (
     )
 
 urlpatterns = [
-    path('new/', NewStoryForm.as_view(), name='new'),
+    path('new/', NewStoryForm.as_view(create_field='audio_file'), name='new'),
 ]

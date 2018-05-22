@@ -1,3 +1,8 @@
 from django.db import models
 
-# Create your models here.
+
+class AudioFileMixin(models.Model):
+    audio_file = models.FileField()
+
+    class Meta:
+        abstract = True
