@@ -1,5 +1,6 @@
 // set up basic variables for app
 
+var submitOverride = document.getElementById('submit-override');
 var record = document.querySelector('.record');
 var stop = document.querySelector('.stop');
 var post = document.querySelector('.post');
@@ -96,19 +97,30 @@ if (navigator.mediaDevices.getUserMedia) {
       var blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
       chunks = [];
 
+      submitOverride.onclick = function(e) {
+        console.log('running makeLink');
+        let formEl = document.getElementById('new-story-form');
+        let fd = new FormData(formEl);
+        fd.append('audioRecording', blob);
+        // debugger
+        fetch('http://127.0.0.1:8000/audio/new/', {method:'POST', body:fd})
+          .then(response => response.ok)
+          .then(res => console.log(res))
+          .catch(err => console.error(err));
+      }
+
       var audioURL = window.URL.createObjectURL(blob);
       console.log(audioURL);
-
-
+      
       audio.src = audioURL;
       console.log('recorder stopped');
-
+      
       deleteButton.onclick = function(e) {
         evtTgt = e.target;
         evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
         // postAudio()
       }
-
+      
       clipLabel.onclick = function() {
         var existingName = clipLabel.textContent;
         var newClipName = prompt('Enter a new name for your sound clip?');
@@ -119,24 +131,25 @@ if (navigator.mediaDevices.getUserMedia) {
         }
       }
     }
-
+    
     mediaRecorder.ondataavailable = function(e) {
       chunks.push(e.data);
     }
+    
 
-    var sendData = function () {
-      var formEl = document.getElementById('new-story-form');
-      var formData = new FormData(formEl);
-      formData.append('blob_path', blob, `${n}.ogg`);
+    // var sendData = function () {
+    //   var formEl = document.getElementById('new-story-form');
+    //   var formData = new FormData(formEl);
+    //   formData.append('blob_path', blob, `${n}.ogg`);
   
-      // for (let key of formData.keys()) {
-      //   console.log(key);
-      // }
-      // debugger
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', 'http://127.0.0.1:8000/audio/new');
-      xhr.send(formData);
-    }
+    //   // for (let key of formData.keys()) {
+    //   //   console.log(key);
+    //   // }
+    //   // debugger
+    //   var xhr = new XMLHttpRequest();
+    //   xhr.open('POST', 'http://127.0.0.1:8000/audio/new');
+    //   xhr.send(formData);
+    // }
       
 
   }

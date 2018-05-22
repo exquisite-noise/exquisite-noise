@@ -5,4 +5,5 @@ from .views import (
 
 urlpatterns = [
     path('new/', NewStoryForm.as_view(), name='new'),
+    # path('new-story/' )
 ]
