@@ -16,7 +16,7 @@ def concat_clips(prev_clip, new_clip):
     combo = prev + new
 
     combined_clip = combo.export(
-        os.path.join(settings.MEDIA_ROOT, combo), format='mp3'
+        os.path.join(settings.MEDIA_ROOT), format='mp3'
     )
 
     new_combined_clip = SimpleUploadedFile(
