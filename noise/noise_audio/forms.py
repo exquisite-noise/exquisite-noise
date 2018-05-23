@@ -1,17 +1,16 @@
-# from .models import Audio
-# from django.forms import ModelForm
+from django import forms
+from audio_recorder.widgets import AudioFileWidget
+from .models import Audio
 
 
-# class AudioForm(ModelForm):
-#     """Record audio form."""
+class AudioFileForm(forms.ModelForm):
+    """Audio File Form."""
 
-#     class Meta:
-#         """Meta."""
+    class Meta:
+        """Meta."""
 
-#         model = Audio
-#         fields = ['topic', 'path']
-
-#     def __init__(self, *args, **kwargs):
-#         """Init."""
-#         user = kwargs.pop('username')
-#         super().__init__(*args, **kwargs)
+        model = Audio
+        fields = ['topic', 'path']
+        widgets = {
+            'path': AudioFileWidget(url='new'),
+        }

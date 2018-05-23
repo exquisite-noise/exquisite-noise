@@ -37,10 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'audio_recorder',
     'coverage',
+    'ffmpy',
     'noise',
     'noise_audio',
     'noise_profile',
+    'pydub',
+    'pygame',
     'sass_processor',
 ]
 

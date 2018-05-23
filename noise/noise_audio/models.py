@@ -2,15 +2,18 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.utils import timezone
+from audio_recorder.models import AudioFileMixin
 
 
-class Audio(models.Model):
+class Audio(AudioFileMixin, models.Model):
     """Audio model."""
 
     contributor = models.ManyToManyField(User, related_name='audio')
     topic = models.CharField(max_length=100, blank=True, null=True)
     path = models.FileField(upload_to='clips/')
-    creator = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='creator', null=True)
+    concat_file = models.FileField(upload_to='concat/', blank=True, null=True)
+    creator = models.ForeignKey(User, on_delete=models.SET_NULL,
+                                related_name='creator', null=True)
     date_published = models.DateField(blank=True, null=True)
     published = models.CharField(
         max_length=12,
