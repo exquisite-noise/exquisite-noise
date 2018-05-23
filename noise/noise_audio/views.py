@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from .convert import convert
 from .concat import concat_clips
 from audio_recorder.views import AudioFileCreateViewMixin
-from .forms import AudioFileForm
+from .forms import AudioFileForm, AudioAddForm
 
 
 class NewStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView):
@@ -23,6 +23,7 @@ class NewStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView):
     def create_object(self, audio_file):
         """
         Create the audio model instance and save in database.
+
         This function overwrites the function in the AudioFileCreateViewMixin.
         """
         new = Audio.objects.create(**{
@@ -48,29 +49,46 @@ class NewStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView):
     #     return super().form_valid(form)
 
 
-class ContinueStoryForm(LoginRequiredMixin, UpdateView):
+class ContinueStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, UpdateView):
     """Add to existing story."""
 
     template_name = 'noise_audio/add_clip.html'
     model = Audio
     success_url = reverse_lazy('home')
     login_url = reverse_lazy('auth_login')
-    fields = ['path', 'concat_file']
+    form_class = AudioAddForm
     context_object_name = 'story'
-    slug_url_kwarg = 'clip_id'
-    slug_field = 'id'
+    pk_url_kwarg = 'clip_id'
 
     def create_object(self, audio_file):
         """
-        Create the audio model instance and save in database.
+        Combine the unfinished story with an additional clip and update in the database.
+
         This function overwrites the function in the AudioFileCreateViewMixin.
         """
-        new = Audio.objects.create(**{
-            self.create_field: audio_file,
-        })
-        new.contributor.add(self.request.user)
+        # new = Audio.objects.create(**{
+        #     self.create_field: audio_file,
+        # })
+        # new.contributor.add(self.request.user)
 
-        return new
+        # return new
+        pass
+
+    # def get_form_kwargs(self):
+    #     """."""
+    #     result = super().get_form_kwargs()
+    #     import pdb; pdb.set_trace()
+    #     result['clip_id'] = self
+    #     return result
+
+    def post(self, request, *args, **kwargs):
+        """Replace post method."""
+        new_clip = request.FILES.get('audio_file', None)
+        # import pdb; pdb.set_trace()
+        record = Audio.objects.filter(id=self.kwargs['clip_id']).first()
+        story = '.' + record.audio_file.url
+        updated_story = concat_clips(story, new_clip)
+        return
 
     def get_context_data(self, **kwargs):
         """Get context data."""

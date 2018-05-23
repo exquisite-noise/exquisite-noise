@@ -9,8 +9,9 @@ def concat_clips(prev_clip, new_clip):
     """
     Concat previous clip with new clip.
     """
+    import pdb; pdb.set_trace()
+    new = AudioSegment.from_mp3(new_clip)
     prev = AudioSegment.from_file(prev_clip)
-    new = AudioSegment.from_file(new_clip)
 
     combo = prev + new
 

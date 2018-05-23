@@ -10,8 +10,7 @@
   {% endif %}
 
   <canvas class="visualizer" height="60px"></canvas>
-
-  <audio src="{{story.path.url}}" controls loop="true"></audio>
+  <audio src="{{story.audio_file.url}}" controls></audio>
   <p id="status-element"><span id="timer-indicator">Enter your topic and press record to begin</span></p>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
