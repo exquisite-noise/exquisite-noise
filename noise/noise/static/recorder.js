@@ -6,7 +6,12 @@ var audio = document.getElementById('js-audio');
 var uploadSpan = document.getElementById('js-upload-span');
 var audioFile = document.querySelectorAll('[data-django-audio-recorder]')[0];
 var submitOverride = document.getElementById('submit-override');
+var canvas = document.querySelector('.visualizer');
+var mainSection = document.querySelector('.main-controls');
+var timerIndicator = document.getElementById('timer-indicator');
 var formData;
+var audioCtx = new (window.AudioContext || webkitAudioContext)();
+var canvasCtx = canvas.getContext('2d');
 
 $(submitOverride).hide();
 $(stopButton).hide();
@@ -16,12 +21,16 @@ promise.then(function(stream) {
   var recorder = new MediaRecorder(stream);
   recorder.chunks = [];
 
+  visualize(stream);
+
   recordButton.addEventListener("click", function(){
     recordButton.disabled = true;
     stopButton.disabled = false;
     audio.removeAttribute('src');
     recorder.start();
     $(audio).hide();
+    $(canvas).show();
+    $(timerIndicator).css('background-color', 'red');
     var counter = setInterval(timer, 1000); //1000 will  run it every 1 second
     // window.setTimeout(buttonClick, 5000);
     // document.getElementById("timer-number").innerHTML = count;
@@ -61,8 +70,11 @@ promise.then(function(stream) {
     var formEl = document.getElementById('new-audio-form');
     formData = new FormData(formEl);
     formData.append('audio_file', blob, "story.mp3");
+    $(timerIndicator).css('background-color', '');
     $(recordButton).text('Re-Record');
+    $(canvas).hide();
     $(submitOverride).fadeIn();
+
   };
 
   submitOverride.addEventListener('click', function(event){
@@ -90,3 +102,63 @@ promise.then(function(stream) {
 });
 
 promise.catch(function(err) { console.log(err.name); });
+
+
+function visualize(stream) {
+  var source = audioCtx.createMediaStreamSource(stream);
+
+  var analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 2048;
+  var bufferLength = analyser.frequencyBinCount;
+  var dataArray = new Uint8Array(bufferLength);
+
+  source.connect(analyser);
+  //analyser.connect(audioCtx.destination);
+
+  draw();
+
+  function draw() {
+    const WIDTH = canvas.width
+    const HEIGHT = canvas.height;
+
+    requestAnimationFrame(draw);
+
+    analyser.getByteTimeDomainData(dataArray);
+
+    canvasCtx.fillStyle = 'rgb(200, 200, 200)';
+    canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
+
+    canvasCtx.lineWidth = 2;
+    canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
+
+    canvasCtx.beginPath();
+
+    var sliceWidth = WIDTH * 1.0 / bufferLength;
+    var x = 0;
+
+
+    for(var i = 0; i < bufferLength; i++) {
+ 
+      var v = dataArray[i] / 128.0;
+      var y = v * HEIGHT/2;
+
+      if(i === 0) {
+        canvasCtx.moveTo(x, y);
+      } else {
+        canvasCtx.lineTo(x, y);
+      }
+
+      x += sliceWidth;
+    }
+
+    canvasCtx.lineTo(canvas.width, canvas.height/2);
+    canvasCtx.stroke();
+
+  }
+}
+
+window.onresize = function() {
+  canvas.width = mainSection.offsetWidth;
+}
+
+window.onresize();
