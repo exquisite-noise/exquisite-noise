@@ -4,7 +4,7 @@
 {% block content %}
 <div class="add-new-audio container main-controls">
   <h2>Start new story!</h2>
-  <span></span>  <canvas class="visualizer" height="60px"></canvas>
+  <canvas class="visualizer" height="60px"></canvas>
   <p id="status-element"><span id="timer-indicator">Enter your topic and press record to begin</span></p>
   <form method="post" enctype="multipart/form-data" id="new-audio-form">
     {% csrf_token %}

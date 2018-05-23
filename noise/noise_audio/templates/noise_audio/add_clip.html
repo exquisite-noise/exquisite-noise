@@ -1,20 +1,26 @@
 {% extends 'generic/base.html' %}
-
+{% load static %}
 {% block content %}
 
-<div class="add-new-audio container">
+<div class="add-new-audio container main-controls">
   <h2>Play clip and continue the story!</h2>
 
   {% if story.topic %}
   <h4>{{story.topic}}</h4>
   {% endif %}
 
-  <audio src="{{story.path.url}}" controls loop="true"></audio>
+  <canvas class="visualizer" height="60px"></canvas>
 
+  <audio src="{{story.path.url}}" controls loop="true"></audio>
+  <p id="status-element"><span id="timer-indicator">Enter your topic and press record to begin</span></p>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Submit" />
+
   </form>
+  <button id="submit-override">Submit Audio</button>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="{% static "recorder.js" %}"></script>
+<script src="{% static "csrf.js" %}"></script>
 {% endblock %}
