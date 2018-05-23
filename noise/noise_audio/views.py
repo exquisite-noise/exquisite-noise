@@ -86,24 +86,24 @@ class ContinueStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, UpdateView
         new_clip = request.FILES.get('audio_file', None)
         # import pdb; pdb.set_trace()
         record = Audio.objects.filter(id=self.kwargs['clip_id']).first()
-        story = '.' + record.audio_file.url
+        story = record.audio_file.url
         updated_story = concat_clips(story, new_clip)
-        return
+        return updated_story
 
     def get_context_data(self, **kwargs):
         """Get context data."""
         context = super().get_context_data(**kwargs)
         return context
 
-    def form_valid(self, form):
-        """Validate form."""
-        # import pdb; pdb.set_trace()
-        form.instance.creator = self.request.user
-        prev_clip = form.instace.path
+    # def form_valid(self, form):
+    #     """Validate form."""
+    #     # import pdb; pdb.set_trace()
+    #     form.instance.creator = self.request.user
+    #     prev_clip = form.instace.path
 
-        new_clip = form.instance.concat_file
-        form.instance.concat_file = concat_clips(prev_clip, new_clip)
+    #     new_clip = form.instance.concat_file
+    #     form.instance.concat_file = concat_clips(prev_clip, new_clip)
 
-        form.instance.contributor.add(self.request.user)
-        form.save()
-        return super().form_valid(form)
+    #     form.instance.contributor.add(self.request.user)
+    #     form.save()
+    #     return super().form_valid(form)
