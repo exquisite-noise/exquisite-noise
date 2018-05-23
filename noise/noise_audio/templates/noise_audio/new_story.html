@@ -4,6 +4,7 @@
 {% block content %}
 <div class="add-new-audio container">
   <h2>Start new story!</h2>
+  <p id="timer-element"><span id="timer-number">5</span> seconds left</p>
   <form method="post" enctype="multipart/form-data" id="new-audio-form">
     {% csrf_token %}
     {{ form.as_p }}

@@ -15,7 +15,28 @@ promise.then(function(stream) {
     stopButton.disabled = false;
     audio.removeAttribute('src');
     recorder.start();
+    var counter = setInterval(timer, 1000); //1000 will  run it every 1 second
+    // window.setTimeout(buttonClick, 5000);
+    // document.getElementById("timer-number").innerHTML = count;
+    var count = 5;
+    function timer(){
+      count = count - 1;
+      if (count <= 0){
+        
+        clearInterval(counter);
+        $('#js-stop-button').click();
+        document.getElementById("timer-element").innerHTML = 'Audio clip submitted.';
+        return;
+      }
+      document.getElementById("timer-number").innerHTML = count;
+    }
   });
+
+  // function buttonClick () {
+    //   $('#js-stop-button').click();
+    // }
+    
+  
 
   stopButton.addEventListener("click", function(){
     stopButton.disabled = true;
@@ -26,6 +47,8 @@ promise.then(function(stream) {
   recorder.ondataavailable = function(e) {
     this.chunks.push(e.data);
   };
+
+  
 
   recorder.onstop = function(event) {
     var blob = new Blob(this.chunks, {'type': 'audio/mpeg;'});
@@ -53,9 +76,7 @@ promise.then(function(stream) {
         console.error('errorThrown:', errorThrown);
       },
     });
-
   };
-
 });
 
 promise.catch(function(err) { console.log(err.name); });
