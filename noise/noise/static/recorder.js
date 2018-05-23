@@ -33,8 +33,6 @@ promise.then(function(stream) {
     var formEl = document.getElementById('new-audio-form');
     var formData = new FormData(formEl);
     formData.append('audio_file', blob, "story.mp3");
-    // var topicFieldInput = $('#id-topic').val();
-    // formData.append('topic', topicFieldInput);
     $.ajax({
       type: "POST",
       url: audioFile.dataset.url,
