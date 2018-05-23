@@ -67,8 +67,6 @@ class ContinueStoryForm(LoginRequiredMixin, UpdateView):
         """
         new = Audio.objects.create(**{
             self.create_field: audio_file,
-            'topic': self.request.POST['topic'],
-            'creator': self.request.user,
         })
         new.contributor.add(self.request.user)
 
