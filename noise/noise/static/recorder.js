@@ -5,6 +5,7 @@ var stopButton = document.getElementById('js-stop-button');
 var audio = document.getElementById('js-audio');
 var uploadSpan = document.getElementById('js-upload-span');
 var audioFile = document.querySelectorAll('[data-django-audio-recorder]')[0];
+var submitOverride = document.getElementById('submit-override');
 
 promise.then(function(stream) {
   var recorder = new MediaRecorder(stream);
