@@ -48,14 +48,14 @@ class NewStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView):
     #     return super().form_valid(form)
 
 
-class ContinueStoryForm(LoginRequiredMixin, UpdateView):
+class ContinueStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, UpdateView):
     """Add to existing story."""
 
     template_name = 'noise_audio/add_clip.html'
     model = Audio
     success_url = reverse_lazy('home')
     login_url = reverse_lazy('auth_login')
-    fields = ['path', 'concat_file']
+    form_class = AudioFileForm
     context_object_name = 'story'
     slug_url_kwarg = 'clip_id'
     slug_field = 'id'
@@ -65,12 +65,22 @@ class ContinueStoryForm(LoginRequiredMixin, UpdateView):
         Create the audio model instance and save in database.
         This function overwrites the function in the AudioFileCreateViewMixin.
         """
-        new = Audio.objects.create(**{
-            self.create_field: audio_file,
-        })
-        new.contributor.add(self.request.user)
+        # new = Audio.objects.create(**{
+        #     self.create_field: audio_file,
+        # })
+        # new.contributor.add(self.request.user)
 
-        return new
+        # return new
+        pass
+
+    def post(self, request):
+        """Replace post method."""
+        new_clip = request.FILES.get('audio_file', None)
+        record = Audio.objects.filter(id=clip_id).first()
+        import pdb; pdb.set_trace()
+        story = record['audio_file']
+        updated_story = concat_clips(story, new_clip)
+        return
 
     def get_context_data(self, **kwargs):
         """Get context data."""
