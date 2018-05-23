@@ -11,15 +11,16 @@ class AudioFileWidget(HiddenInput):
             'audio_recorder/csrf.js',
         )
 
-    def __init__(self, url=None, *args, **kwargs):
+    def __init__(self, url=None, url_kwargs=None, *args, **kwargs):
         self.url = url
+        self.url_kwargs = url_kwargs
         super(AudioFileWidget, self).__init__(*args, **kwargs)
 
     def build_attrs(self, *args, **kwargs):
         """Build HTML attributes for the widget."""
         attrs = super(AudioFileWidget, self).build_attrs(*args, **kwargs)
         if self.url is not None:
-            attrs['data-url'] = reverse(self.url)
+            attrs['data-url'] = reverse(self.url, kwargs=self.url_kwargs)
             attrs['data-django-audio-recorder'] = True
 
         return attrs
