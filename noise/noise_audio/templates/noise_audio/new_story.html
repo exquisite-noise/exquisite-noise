@@ -4,13 +4,12 @@
 {% block content %}
 <div class="add-new-audio container">
   <h2>Start new story!</h2>
-  <p id="timer-element"><span id="timer-number">5</span> seconds left</p>
+  <p id="status-element"><span id="timer-indicator">Enter your topic and press record to begin</span></p>
   <form method="post" enctype="multipart/form-data" id="new-audio-form">
     {% csrf_token %}
     {{ form.as_p }}
-    <!-- <input type="submit" value="Submit"/> -->
   </form>
-  <button id="submit-override">Submit Override</button>
+  <button id="submit-override">Submit Audio</button>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="{% static "recorder.js" %}"></script>

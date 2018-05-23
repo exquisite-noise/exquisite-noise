@@ -29,18 +29,21 @@ class AudioFileWidget(HiddenInput):
         if value:
             instance = self.choices.queryset.filter(id=value).first()
             audio_template = (
+                '<p>'
                 '<audio id="js-audio" controls>'
                 '    <source src={url}>'
                 '</audio>'
+                '</p>'
             ).format(url=instance.audio_file.url)
         else:
             audio_template = (
+                '<p>'
                 '<audio id="js-audio" controls>'
                 '    <source>'
                 '</audio>'
+                '</p>'
             )
         return audio_template + (
-           '<br />'
            '<div class="btn-group" role="group">'
            '    <button id="js-record-button" '
            '            type="button" class="btn btn-default">'
@@ -51,10 +54,9 @@ class AudioFileWidget(HiddenInput):
            '        Stop'
            '    </button>'
            '</div>'
-           '<span id="js-upload-span" '
+           '<p id="js-upload-span" '
            '      class="hidden">'
-           '    Uploading...'
-           '</span>'
+           '</p>'
            '<br />'
            '<br />'
         ) + html

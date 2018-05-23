@@ -8,6 +8,10 @@ var audioFile = document.querySelectorAll('[data-django-audio-recorder]')[0];
 var submitOverride = document.getElementById('submit-override');
 var formData;
 
+$(submitOverride).hide();
+$(stopButton).hide();
+$(audio).hide();
+
 promise.then(function(stream) {
   var recorder = new MediaRecorder(stream);
   recorder.chunks = [];
@@ -17,47 +21,48 @@ promise.then(function(stream) {
     stopButton.disabled = false;
     audio.removeAttribute('src');
     recorder.start();
+    $(audio).hide();
     var counter = setInterval(timer, 1000); //1000 will  run it every 1 second
     // window.setTimeout(buttonClick, 5000);
     // document.getElementById("timer-number").innerHTML = count;
     var count = 5;
+    
     function timer(){
       count = count - 1;
       if (count <= 0){
         
         clearInterval(counter);
         $('#js-stop-button').click();
-        document.getElementById("timer-element").innerHTML = 'Audio clip submitted.';
+        document.getElementById("timer-indicator").innerHTML = 'Listen below then re-record or submit.';
         return;
       }
-      document.getElementById("timer-number").innerHTML = count;
+      document.getElementById("timer-indicator").innerHTML = count + ' seconds left';
     }
   });
 
-  // function buttonClick () {
-    //   $('#js-stop-button').click();
-    // }
-    
-  
-
   stopButton.addEventListener("click", function(){
     stopButton.disabled = true;
+    recordButton.disabled = false;
     uploadSpan.classList.remove('hidden');
     recorder.stop();
+    $(audio).fadeIn();
   });
 
   recorder.ondataavailable = function(e) {
     this.chunks.push(e.data);
   };
 
-  
-
   recorder.onstop = function(event) {
     var blob = new Blob(this.chunks, {'type': 'audio/mpeg;'});
     this.chunks = [];
+    var audioURL = window.URL.createObjectURL(blob);
+    audio.src = audioURL;
+    console.log(audioURL);
     var formEl = document.getElementById('new-audio-form');
     formData = new FormData(formEl);
     formData.append('audio_file', blob, "story.mp3");
+    $(recordButton).text('Re-Record');
+    $(submitOverride).fadeIn();
   };
 
   submitOverride.addEventListener('click', function(event){
