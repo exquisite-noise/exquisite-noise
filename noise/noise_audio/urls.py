@@ -1,10 +1,12 @@
 from django.urls import path
 from .views import (
     NewStoryForm,
-    ContinueStoryForm
+    # continue_story_form,
+    ContinueStoryForm,
     )
 
 urlpatterns = [
-    path('add/<int:clip_id>/', ContinueStoryForm.as_view(), name='add'),
     path('new/', NewStoryForm.as_view(create_field='audio_file'), name='new'),
+    # path('add/<int:clip_id>/', continue_story_form, name='add'),
+    path('add/<int:clip_id>/', ContinueStoryForm.as_view(create_field='audio_file'), name='add'),
 ]

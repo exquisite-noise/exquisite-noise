@@ -1,4 +1,5 @@
 {% extends 'generic/base.html' %}
+{% load static %}
 
 {% block content %}
 
@@ -9,7 +10,7 @@
   <h4>{{story.topic}}</h4>
   {% endif %}
 
-  <audio src="{{story.path.url}}" controls loop="true"></audio>
+  <audio src="{{story.audio_file.url}}" controls></audio>
 
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -17,4 +18,7 @@
     <input type="submit" value="Submit" />
   </form>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="{% static "recorder-add.js" %}"></script>
+<script src="{% static "csrf.js" %}"></script>
 {% endblock %}
