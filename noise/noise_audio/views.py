@@ -17,11 +17,14 @@ class NewStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView):
     template_name = 'noise_audio/new_story.html'
     model = Audio
     form_class = AudioFileForm
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('add')
     login_url = reverse_lazy('auth_login')
 
     def create_object(self, audio_file):
-        """Create the audio model instance and save in database. This function overwrites the function in the AudioFileCreateViewMixin."""
+        """
+        Create the audio model instance and save in database.
+        This function overwrites the function in the AudioFileCreateViewMixin.
+        """
         new = Audio.objects.create(**{
           self.create_field: audio_file,
           'topic': self.request.POST['topic'],
@@ -52,10 +55,24 @@ class ContinueStoryForm(LoginRequiredMixin, UpdateView):
     model = Audio
     success_url = reverse_lazy('home')
     login_url = reverse_lazy('auth_login')
-    fields = ['path', 'concat_path']
+    fields = ['path', 'concat_file']
     context_object_name = 'story'
     slug_url_kwarg = 'clip_id'
     slug_field = 'id'
+
+    def create_object(self, audio_file):
+        """
+        Create the audio model instance and save in database.
+        This function overwrites the function in the AudioFileCreateViewMixin.
+        """
+        new = Audio.objects.create(**{
+            self.create_field: audio_file,
+            'topic': self.request.POST['topic'],
+            'creator': self.request.user,
+        })
+        new.contributor.add(self.request.user)
+
+        return new
 
     def get_context_data(self, **kwargs):
         """Get context data."""
@@ -66,10 +83,10 @@ class ContinueStoryForm(LoginRequiredMixin, UpdateView):
         """Validate form."""
         # import pdb; pdb.set_trace()
         form.instance.creator = self.request.user
+        prev_clip = form.instace.path
 
-        new_clip = form.instance.concat_path
-        form.instance.concat_path = concat_clips(form.instance.path,
-                                                 convert(new_clip))
+        new_clip = form.instance.concat_file
+        form.instance.concat_file = concat_clips(prev_clip, new_clip)
 
         form.instance.contributor.add(self.request.user)
         form.save()

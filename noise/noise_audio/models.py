@@ -11,7 +11,7 @@ class Audio(AudioFileMixin, models.Model):
     contributor = models.ManyToManyField(User, related_name='audio')
     topic = models.CharField(max_length=100, blank=True, null=True)
     path = models.FileField(upload_to='clips/')
-    concat_path = models.FileField(upload_to='concat/', blank=True, null=True)
+    concat_file = models.FileField(upload_to='concat/', blank=True, null=True)
     creator = models.ForeignKey(User, on_delete=models.SET_NULL,
                                 related_name='creator', null=True)
     date_published = models.DateField(blank=True, null=True)

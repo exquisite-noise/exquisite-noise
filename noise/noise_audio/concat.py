@@ -6,6 +6,9 @@ from pydub import AudioSegment
 
 
 def concat_clips(prev_clip, new_clip):
+    """
+    Concat previous clip with new clip.
+    """
     prev = AudioSegment.from_file(prev_clip)
     new = AudioSegment.from_file(new_clip)
 
