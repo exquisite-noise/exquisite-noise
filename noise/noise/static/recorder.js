@@ -6,6 +6,7 @@ var audio = document.getElementById('js-audio');
 var uploadSpan = document.getElementById('js-upload-span');
 var audioFile = document.querySelectorAll('[data-django-audio-recorder]')[0];
 var submitOverride = document.getElementById('submit-override');
+var formData;
 
 promise.then(function(stream) {
   var recorder = new MediaRecorder(stream);
@@ -55,8 +56,11 @@ promise.then(function(stream) {
     var blob = new Blob(this.chunks, {'type': 'audio/mpeg;'});
     this.chunks = [];
     var formEl = document.getElementById('new-audio-form');
-    var formData = new FormData(formEl);
+    formData = new FormData(formEl);
     formData.append('audio_file', blob, "story.mp3");
+  };
+
+  submitOverride.addEventListener('click', function(event){
     $.ajax({
       type: "POST",
       url: audioFile.dataset.url,
@@ -77,7 +81,7 @@ promise.then(function(stream) {
         console.error('errorThrown:', errorThrown);
       },
     });
-  };
+  });
 });
 
 promise.catch(function(err) { console.log(err.name); });
