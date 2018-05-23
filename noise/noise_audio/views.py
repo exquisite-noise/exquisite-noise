@@ -60,19 +60,19 @@ class ContinueStoryForm(LoginRequiredMixin, UpdateView):
     slug_url_kwarg = 'clip_id'
     slug_field = 'id'
 
-    def create_object(self, audio_file):
-        """
-        Create the audio model instance and save in database.
-        This function overwrites the function in the AudioFileCreateViewMixin.
-        """
-        new = Audio.objects.create(**{
-            self.create_field: audio_file,
-            'topic': self.request.POST['topic'],
-            'creator': self.request.user,
-        })
-        new.contributor.add(self.request.user)
+    # def create_object(self, audio_file):
+    #     """
+    #     Create the audio model instance and save in database.
+    #     This function overwrites the function in the AudioFileCreateViewMixin.
+    #     """
+    #     new = Audio.objects.create(**{
+    #         self.create_field: audio_file,
+    #         'topic': self.request.POST['topic'],
+    #         'creator': self.request.user,
+    #     })
+    #     new.contributor.add(self.request.user)
 
-        return new
+    #     return new
 
     def get_context_data(self, **kwargs):
         """Get context data."""
