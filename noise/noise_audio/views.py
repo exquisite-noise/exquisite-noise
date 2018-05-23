@@ -4,6 +4,7 @@ import os
 from .models import Audio
 from django.views.generic import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse_lazy
 from .convert import convert
 from .concat import concat_clips
@@ -66,44 +67,43 @@ class ContinueStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, UpdateView
 
         This function overwrites the function in the AudioFileCreateViewMixin.
         """
-        # new = Audio.objects.create(**{
-        #     self.create_field: audio_file,
-        # })
-        # new.contributor.add(self.request.user)
+        import pdb; pdb.set_trace()
+        record = Audio.objects.filter(id=self.kwargs['clip_id']).first()
+        story = 'noise' + record.audio_file.url
+        updated_story = concat_clips(story, audio_file)
 
-        # return new
-        pass
-
-    # def get_form_kwargs(self):
-    #     """."""
-    #     result = super().get_form_kwargs()
-    #     import pdb; pdb.set_trace()
-    #     result['clip_id'] = self
-    #     return result
+        record.audio_file.file = SimpleUploadedFile(
+            name='test.mp3',
+            content=updated_story.read(),
+            content_type='audio/mpeg'
+            )
+        record.save()
+        return record
 
     def post(self, request, *args, **kwargs):
-        """Replace post method."""
-        new_clip = request.FILES.get('audio_file', None)
-        # import pdb; pdb.set_trace()
-        record = Audio.objects.filter(id=self.kwargs['clip_id']).first()
-        story = '.' + record.audio_file.url
-        updated_story = concat_clips(story, new_clip)
-        return
+    #     """Replace post method."""
+    #     # new_clip = request.FILES.get('audio_file', None)
+    #     # import pdb; pdb.set_trace()
+    #     # record = Audio.objects.filter(id=kwargs.pop('clip_id')).first()
+        kwargs.pop('clip_id')
+    #     # story = 'noise' + record.audio_file.url
+    #     # updated_story = concat_clips(story, new_clip)
+        return super().post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         """Get context data."""
         context = super().get_context_data(**kwargs)
         return context
 
-    def form_valid(self, form):
-        """Validate form."""
-        # import pdb; pdb.set_trace()
-        form.instance.creator = self.request.user
-        prev_clip = form.instace.path
+    # def form_valid(self, form):
+    #     """Validate form."""
+    #     # import pdb; pdb.set_trace()
+    #     form.instance.creator = self.request.user
+    #     prev_clip = form.instace.path
 
-        new_clip = form.instance.concat_file
-        form.instance.concat_file = concat_clips(prev_clip, new_clip)
+    #     new_clip = form.instance.concat_file
+    #     form.instance.concat_file = concat_clips(prev_clip, new_clip)
 
-        form.instance.contributor.add(self.request.user)
-        form.save()
-        return super().form_valid(form)
+    #     form.instance.contributor.add(self.request.user)
+    #     form.save()
+    #     return super().form_valid(form)

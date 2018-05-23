@@ -9,20 +9,23 @@ def concat_clips(prev_clip, new_clip):
     """
     Concat previous clip with new clip.
     """
-    import pdb; pdb.set_trace()
-    new = AudioSegment.from_mp3(new_clip)
+    # import pdb; pdb.set_trace()
     prev = AudioSegment.from_file(prev_clip)
+    # new = AudioSegment.from_mp3(new_clip)
+    new = AudioSegment.from_file('noise/media/story.mp3')
 
     combo = prev + new
 
     combined_clip = combo.export(
-        os.path.join(settings.MEDIA_ROOT, combo), format='mp3'
+        os.path.join(settings.MEDIA_ROOT, 'new_story1.mp3'), format='mp3'
     )
 
-    new_combined_clip = SimpleUploadedFile(
-        name=combo,
-        content=combined_clip.read(),
-        content_type='audio/mpeg'
-    )
-    os.remove(os.path.join(settings.MEDIA_ROOT, combined_clip))
-    return new_combined_clip
+    # new_combined_clip = SimpleUploadedFile(
+    #     name=combo,
+    #     content=combined_clip.read(),
+    #     content_type='audio/mpeg'
+    # )
+    # # os.remove(os.path.join(settings.MEDIA_ROOT, combined_clip))
+    # return new_combined_clip
+
+    return combined_clip
