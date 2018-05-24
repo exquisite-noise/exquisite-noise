@@ -29,7 +29,7 @@ class Audio(AudioFileMixin, models.Model):
 
 
 @receiver(models.signals.post_save, sender=Audio)
-def set_published_date(sender, instance, **kwargs):
+def set_published_date(sender, instance, **kwargs):  # pragma: no cover
     """Set published date when story completed and published."""
     if instance.published == 'PUB' and not instance.date_published:
         instance.date_published = timezone.now()

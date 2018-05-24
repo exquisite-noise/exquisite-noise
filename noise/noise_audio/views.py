@@ -18,7 +18,7 @@ class NewStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView):
     success_url = reverse_lazy('link')
     login_url = reverse_lazy('auth_login')
 
-    def create_object(self, audio_file):
+    def create_object(self, audio_file):  # pragma: no cover
         """
         Create the audio model instance and save in database.
 
@@ -50,7 +50,7 @@ class ContinueStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView
     context_object_name = 'story'
     pk_url_kwargs = 'clip_id'
 
-    def create_object(self, audio_file):
+    def create_object(self, audio_file):  # pragma: no cover
         """
         Combine the unfinished story with an additional clip and update in the database.
 
@@ -90,7 +90,7 @@ class ContinueStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView
         kwargs['clip_id'] = self.kwargs['clip_id']
         return kwargs
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):  # pragma: no cover
         """Adding to post method."""
         kwargs.pop('clip_id')
         return super().post(request, *args, **kwargs)
