@@ -1,21 +1,12 @@
-from django.shortcuts import render
-from pydub import AudioSegment
 import os
 from .models import Audio, AudioAdd
 from django.conf import settings
 from django.views.generic import CreateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse_lazy
-from django.core.files.storage import default_storage
-from django.core.files.base import ContentFile
-from django.conf import settings
-from .convert import convert
-from .concat import concat_clips
 from audio_recorder.views import AudioFileCreateViewMixin
 from .forms import AudioFileForm, AudioAddForm
-
-import ffmpeg
+from pydub import AudioSegment
 
 
 class NewStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView):
@@ -30,6 +21,7 @@ class NewStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView):
     def create_object(self, audio_file):
         """
         Create the audio model instance and save in database.
+
         This function overwrites the function in the AudioFileCreateViewMixin.
         """
         new = Audio.objects.create(**{
@@ -61,6 +53,7 @@ class ContinueStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView
     def create_object(self, audio_file):
         """
         Combine the unfinished story with an additional clip and update in the database.
+
         This function overwrites the function in the AudioFileCreateViewMixin.
         """
         new = AudioAdd.objects.create(**{
@@ -92,22 +85,21 @@ class ContinueStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView
         return audio_final
 
     def get_form_kwargs(self):
-        """Get the kwargs for form."""
+        """Get form kwargs."""
         kwargs = super().get_form_kwargs()
         kwargs['clip_id'] = self.kwargs['clip_id']
         return kwargs
 
     def post(self, request, *args, **kwargs):
-        """Replace post method."""
+        """Adding to post method."""
         kwargs.pop('clip_id')
         return super().post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        """Get context data."""
+        """Customize context data."""
         context = super().get_context_data(**kwargs)
         context['story'] = Audio.objects.get(id=self.kwargs['clip_id'])
         snippet = AudioSegment.from_file(context['story'].audio_file.path)[-2000:]
-        # import pdb; pdb.set_trace()
         snippet_root = os.path.join(settings.MEDIA_ROOT, 'snippets')
         try:
             os.mkdir(snippet_root)
@@ -124,19 +116,11 @@ class LinkView(TemplateView):
 
     template_name = 'noise_audio/link.html'
     model = Audio
-    # context_object_name = 'story'
-    # queryset = Audio.objects.all().last()
-
-    # def get_object(self):
-    #     """Get object."""
-    #     return Photo.objects.filter(id=self.kwargs['id']).first()
 
     def get_context_data(self, **kwargs):
         """Customize context data."""
         context = super().get_context_data(**kwargs)
-        # audio = Audio.objects.all()
         id = Audio.objects.all().last().id
-        # import pdb; pdb.set_trace()
         context['story_link'] = f'localhost:8000/audio/add/{id}'
         context['story_id'] = id
         context['story_topic'] = Audio.objects.all().last().topic
