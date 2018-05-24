@@ -1,4 +1,6 @@
+from django.core.files.storage import default_storage
 from django.shortcuts import render
+from django.conf import settings
 from pydub import AudioSegment
 import os
 from .models import Audio
@@ -83,11 +85,22 @@ class ContinueStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, UpdateView
 
     def post(self, request, *args, **kwargs):
         """Replace post method."""
-        new_clip = request.FILES.get('audio_file', None)
-        # import pdb; pdb.set_trace()
+        filename = "story.mp3" # received file name
+        file_obj = request.FILES['audio_file']
+        with default_storage.open(settings.MEDIA_ROOT + filename, 'wb+') as destination:
+            for chunk in file_obj.chunks():
+                destination.write(chunk)
+        new_clip_path = settings.MEDIA_ROOT + filename
+
         record = Audio.objects.filter(id=self.kwargs['clip_id']).first()
-        story = '.' + record.audio_file.url
-        updated_story = concat_clips(story, new_clip)
+        story = settings.MEDIA_ROOT + record.audio_file.url
+
+        # new_clip = request.FILES['audio_file']
+        # print('****', new_clip)
+        # new_clip_path = str(os.path.join(settings.MEDIA_ROOT, new_clip))
+        # print(new_clip)
+
+        story = concat_clips(story, new_clip_path)
         return
 
     def get_context_data(self, **kwargs):

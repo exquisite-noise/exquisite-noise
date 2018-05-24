@@ -62,7 +62,7 @@ promise.then(function(stream) {
   };
 
   recorder.onstop = function(event) {
-    var blob = new Blob(this.chunks, {'type': 'audio/mpeg;'});
+    var blob = new Blob(this.chunks, {'type': 'audio/mp3;'});
     this.chunks = [];
     var audioURL = window.URL.createObjectURL(blob);
     audio.src = audioURL;
