@@ -35,11 +35,11 @@ promise.then(function(stream) {
     // window.setTimeout(buttonClick, 5000);
     // document.getElementById("timer-number").innerHTML = count;
     var count = 5;
-    
+
     function timer(){
       count = count - 1;
       if (count <= 0){
-        
+
         clearInterval(counter);
         $('#js-stop-button').click();
         document.getElementById("timer-indicator").innerHTML = 'Listen below then re-record or submit.';
@@ -62,7 +62,7 @@ promise.then(function(stream) {
   };
 
   recorder.onstop = function(event) {
-    var blob = new Blob(this.chunks, {'type': 'audio/mpeg;'});
+    var blob = new Blob(this.chunks, {'type': 'audio/mp3;'});
     this.chunks = [];
     var audioURL = window.URL.createObjectURL(blob);
     audio.src = audioURL;
@@ -89,6 +89,7 @@ promise.then(function(stream) {
         recordButton.disabled = false;
         audioFile.value = data.id;
         audio.src = data.url;
+        window.location = '../link';
       },
       error: function(jqXHR, textStatus, errorThrown){
         uploadSpan.classList.add('hidden');
@@ -138,7 +139,7 @@ function visualize(stream) {
 
 
     for(var i = 0; i < bufferLength; i++) {
- 
+
       var v = dataArray[i] / 128.0;
       var y = v * HEIGHT/2;
 

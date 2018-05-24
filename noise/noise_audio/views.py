@@ -1,19 +1,12 @@
-from django.shortcuts import render
-from pydub import AudioSegment
 import os
 from .models import Audio, AudioAdd
 from django.conf import settings
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse_lazy
-from django.core.files.storage import default_storage
-from django.core.files.base import ContentFile
-from django.conf import settings
 from audio_recorder.views import AudioFileCreateViewMixin
 from .forms import AudioFileForm, AudioAddForm
-
-import ffmpeg
+from pydub import AudioSegment
 
 
 class NewStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView):
@@ -22,12 +15,13 @@ class NewStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView):
     template_name = 'noise_audio/new_story.html'
     model = Audio
     form_class = AudioFileForm
-    success_url = reverse_lazy('add')
+    success_url = reverse_lazy('link')
     login_url = reverse_lazy('auth_login')
 
     def create_object(self, audio_file):
         """
         Create the audio model instance and save in database.
+
         This function overwrites the function in the AudioFileCreateViewMixin.
         """
         new = Audio.objects.create(**{
@@ -59,6 +53,7 @@ class ContinueStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView
     def create_object(self, audio_file):
         """
         Combine the unfinished story with an additional clip and update in the database.
+
         This function overwrites the function in the AudioFileCreateViewMixin.
         """
         new = AudioAdd.objects.create(**{
@@ -71,32 +66,62 @@ class ContinueStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView
 
         # concat clips
         new_object = AudioAdd.objects.filter(pk_master=self.kwargs['clip_id']).last()
-        new_path = settings.BASE_DIR + new_object.audio_file.url
+        new_path = new_object.audio_file.path
 
         prev_object = Audio.objects.filter(id=self.kwargs['clip_id']).first()
-        prev_path = settings.BASE_DIR + prev_object.audio_file.url
+        prev_path = prev_object.audio_file.path
 
-        audio_prev = open(prev_path, 'rb').read()
-        audio_new = open(new_path, 'rb').read()
+        with open(prev_path, 'rb') as f:
+            audio_prev = f.read()
+
+        with open(new_path, 'rb') as f:
+            audio_new = f.read()
 
         audio_join = audio_prev + audio_new
-        # os.remove(prev_path)
-        audio_final = open(prev_path, 'wb').write(audio_join)
+
+        with open(prev_path, 'wb') as f:
+            audio_final = f.write(audio_join)
 
         return audio_final
 
     def get_form_kwargs(self):
+        """Get form kwargs."""
         kwargs = super().get_form_kwargs()
         kwargs['clip_id'] = self.kwargs['clip_id']
         return kwargs
 
     def post(self, request, *args, **kwargs):
-        """Replace post method."""
+        """Adding to post method."""
         kwargs.pop('clip_id')
         return super().post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        """Get context data."""
+        """Customize context data."""
         context = super().get_context_data(**kwargs)
         context['story'] = Audio.objects.get(id=self.kwargs['clip_id'])
+        snippet = AudioSegment.from_file(context['story'].audio_file.path)[-2000:]
+        snippet_root = os.path.join(settings.MEDIA_ROOT, 'snippets')
+        try:
+            os.mkdir(snippet_root)
+        except IOError:
+            pass
+        snippet.export(os.path.join(snippet_root, context['story'].audio_file.name))
+        context['snippet_url'] = '{}snippets/{}'.format(
+            settings.MEDIA_URL, context['story'].audio_file.name)
+        return context
+
+
+class LinkView(TemplateView):
+    """View for link to share story."""
+
+    template_name = 'noise_audio/link.html'
+    model = Audio
+
+    def get_context_data(self, **kwargs):
+        """Customize context data."""
+        context = super().get_context_data(**kwargs)
+        id = Audio.objects.all().last().id
+        context['story_link'] = f'localhost:8000/audio/add/{id}'
+        context['story_id'] = id
+        context['story_topic'] = Audio.objects.all().last().topic
         return context

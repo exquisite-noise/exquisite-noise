@@ -6,31 +6,42 @@
 <html lang="en">
 <head>
   <link href="{% sass_src '_base.scss' %}" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Lobster|Roboto" rel="stylesheet">
   <title>Exquisite Noise</title>
 </head>
 <body>
   <header>
-    <nav>
-      <ul>
-        <li><a href="{% url "home" %}">Home</a></li>
-        {% if user.is_authenticated %}
-        <li><a href="{% url "profile" %}">Profile</a></li>
-        <li><a href="{% url "new" %}">New Story</a></li>
-        {% if user.is_superuser %}
-        <li><a href="{% url "admin:index" %}">Admin</a></li>
-        {% endif %}
-        <li><a href="{% url "auth_logout" %}">Logout</a></li>
-        {% else %}
-        <li><a href="{% url "registration_register" %}">Signup</a></li>
-        <li><a href="{% url "auth_login" %}">Signin</a></li>
-        {% endif %}
-      </ul>
-    </nav>
+    <div id="left-block">
+      <nav>
+        <ul>
+          <li><a href="{% url "home" %}">Home</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url "profile" %}">Profile</a></li>
+          <li><a href="{% url "new" %}">New Story</a></li>
+          {% if user.is_superuser %}
+          <li><a href="{% url "admin:index" %}">Admin</a></li>
+          {% endif %}
+          <li><a href="{% url "auth_logout" %}">Logout</a></li>
+          {% else %}
+          <li><a href="{% url "registration_register" %}">Signup</a></li>
+          <li><a href="{% url "auth_login" %}">Signin</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+    <div id="right-block">
+      {% if user.is_authenticated %}
+      <span>Welcome {{ user.username }}</span>
+      <button class="start-button"><a href="{% url "new" %}">Start Recording</a></button>
+      {% else %}
+      <button class="start-button"><a href="{% url "registration_register" %}">Signup</a></button>
+      <button class="start-button"><a href="{% url "auth_login" %}">Signin</a></button>
+      {% endif %}
+      
+    </div>
+    
   </header>
-  <main>
-    {% if user.is_authenticated %}
-    <h3>Welcome {{ user.username }}</h3>
-    {% endif %}
+  <main>    
     {% block content %}
     <h3>No Content</h3>
     {% endblock content%}
