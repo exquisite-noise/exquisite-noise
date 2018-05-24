@@ -1,6 +1,6 @@
 header {
   height: 35px;
-  background-color: $grey;
+  background-color: $white;
   #left-block {
     width: 50%;
     display: inline-block;
@@ -8,6 +8,7 @@ header {
       ul {
         // text-align: center;
         list-style-type: none;
+        margin-left: 15px;
       }
       
       li {
@@ -15,6 +16,7 @@ header {
         // padding: 7px;
         font-size: $font * .4;
         line-height: 35px;
+        margin-right: 15px;
         
         a {
           text-decoration: none;
@@ -25,8 +27,12 @@ header {
   }
   #right-block {
     float: right;
+    span {      
+      font-size: $font * .4;
+      line-height: 35px;
+    }
     
-    button {
+    .start-button {
       a {
         text-decoration: none;
         color: $white;
@@ -38,8 +44,5 @@ header {
       margin-right: 15px
     }
   }
-
-
-
 }
 

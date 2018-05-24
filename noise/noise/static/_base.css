@@ -54,7 +54,11 @@ body {
   background-color: #7CDBD5; }
 
 h1 {
-  font-size: 50px; }
+  font-size: 60px;
+  font-family: 'Lobster', cursive; }
+
+h2, h3, h4, h5, p {
+  font-family: 'Roboto', sans-serif; }
 
 h2 {
   font-size: 45px; }
@@ -70,27 +74,53 @@ p {
 
 header {
   height: 35px;
-  background-color: #EFECE7; }
+  background-color: #fff; }
   header #left-block {
     width: 50%;
     display: inline-block; }
     header #left-block nav ul {
-      list-style-type: none; }
+      list-style-type: none;
+      margin-left: 15px; }
     header #left-block nav li {
       display: inline;
       font-size: 20px;
-      line-height: 35px; }
+      line-height: 35px;
+      margin-right: 15px; }
       header #left-block nav li a {
         text-decoration: none;
         color: #000; }
   header #right-block {
     float: right; }
-    header #right-block button {
+    header #right-block span {
+      font-size: 20px;
+      line-height: 35px; }
+    header #right-block .start-button {
       color: #fff;
       font-size: 20px;
       background-color: #F98E02;
       margin-top: 3px;
       margin-right: 15px; }
-      header #right-block button a {
+      header #right-block .start-button a {
         text-decoration: none;
         color: #fff; }
+
+#site-intro-container {
+  width: 60%;
+  margin: auto; }
+  #site-intro-container #site-name {
+    height: 100px; }
+    #site-intro-container #site-name h1 {
+      line-height: 100px;
+      color: #F53240;
+      text-align: center; }
+  #site-intro-container #site-description h4 {
+    color: #fff; }
+  #site-intro-container .start-button button {
+    color: #fff;
+    font-size: 20px;
+    background-color: #F98E02;
+    margin-top: 3px;
+    margin-right: 15px; }
+    #site-intro-container .start-button button a {
+      text-decoration: none;
+      color: #fff; }
