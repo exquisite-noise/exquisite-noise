@@ -3,6 +3,9 @@ import os
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from pydub import AudioSegment
+from pydub.utils import which
+
+AudioSegment.converter = which("ffmpeg")
 
 
 def concat_clips(prev_clip, new_clip):

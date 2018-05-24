@@ -1,13 +1,16 @@
 body {
-    margin: 10px;
     font-family: Helvetica, sans-serif;
-    color: $white;
-    background-color: $black;
-    text-align: center;
+    color: $black;
+    background-color: $sky;
 }
 
 h1 {
-    font-size: $font;
+    font-size: $font * 1.2;
+    font-family: 'Lobster', cursive;
+}
+
+h2, h3, h4, h5, p {
+  font-family: 'Roboto', sans-serif;
 }
 
 h2 {

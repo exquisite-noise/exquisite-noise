@@ -1,7 +1,22 @@
 {% extends 'generic/base.html' %}
 
+
 {% block content %}
 <div class="home-page">
+  <div id="site-intro-container">
+    <div id="site-name">
+      <h1>Exquisite Noise</h1>
+    </div>
+    <div id="site-description"> 
+      <h4>Record a 15 second audio clip and send it to your friend, they'll hear the last 5 and add 15 seconds of their own to it. 
+      </h4> 
+      <h4>Keep sharing it to add even more and see how it evolves (exquisitely we hope!).</h4>
+    </div>
+    <div class="start-button">
+        <button><a href="{% url "new" %}">Start Recording</a></button>
+    </div>
+  </div>
+ 
  {% csrf_token %}
   {% for clip in clips %}
   <a href="{% url "add" clip_id=clip.id %}"><p>{{clip.topic}}</p></a>
