@@ -9,6 +9,7 @@ class HomeView(TemplateView):
     context_object_name = 'story'
 
     def get_context_data(self, **kwargs):
+        """Get context data."""
         context = super().get_context_data(**kwargs)
 
         clips = Audio.objects.all()

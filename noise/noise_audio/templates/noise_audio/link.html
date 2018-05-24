@@ -1,0 +1,13 @@
+{% extends 'generic/base.html' %}
+
+{% block content %}
+
+<div class="share-link container">
+  <h2>Share to add!</h2>
+  <p>Great! <a href="{% url "add" clip_id=story_id %}">{{ story_topic }}</a> has been created. </p>
+  <p>Copy this link and send it to your friends to add to your story.</p>
+  <p id="copy-link">{{ story_link }}</p>
+
+</div>
+{% endblock %}
+ 
