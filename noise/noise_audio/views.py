@@ -1,10 +1,21 @@
+from django.shortcuts import render
+from pydub import AudioSegment
+import os
 from .models import Audio, AudioAdd
 from django.conf import settings
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse_lazy
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+from django.conf import settings
+from .convert import convert
+from .concat import concat_clips
 from audio_recorder.views import AudioFileCreateViewMixin
 from .forms import AudioFileForm, AudioAddForm
+
+import ffmpeg
 
 
 class NewStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView):
@@ -19,7 +30,6 @@ class NewStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView):
     def create_object(self, audio_file):
         """
         Create the audio model instance and save in database.
-
         This function overwrites the function in the AudioFileCreateViewMixin.
         """
         new = Audio.objects.create(**{
@@ -51,7 +61,6 @@ class ContinueStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView
     def create_object(self, audio_file):
         """
         Combine the unfinished story with an additional clip and update in the database.
-
         This function overwrites the function in the AudioFileCreateViewMixin.
         """
         new = AudioAdd.objects.create(**{
@@ -71,24 +80,25 @@ class ContinueStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView
 
         audio_prev = open(prev_path, 'rb').read()
         audio_new = open(new_path, 'rb').read()
+
         audio_join = audio_prev + audio_new
+        # os.remove(prev_path)
         audio_final = open(prev_path, 'wb').write(audio_join)
 
         return audio_final
 
     def get_form_kwargs(self):
-        """Get form kwargs."""
         kwargs = super().get_form_kwargs()
         kwargs['clip_id'] = self.kwargs['clip_id']
         return kwargs
 
     def post(self, request, *args, **kwargs):
-        """Adding to post method."""
+        """Replace post method."""
         kwargs.pop('clip_id')
         return super().post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        """Customize context data."""
+        """Get context data."""
         context = super().get_context_data(**kwargs)
         context['story'] = Audio.objects.get(id=self.kwargs['clip_id'])
         return context
