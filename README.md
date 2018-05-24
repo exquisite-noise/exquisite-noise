@@ -31,7 +31,7 @@ Python 3, Django 2, CSS/SCSS, HTML, PostgreSQL, Travis CI, Coveralls
 |:--|:--|
 | 5-25-2018 | Final Presentation |
 | 5-24-2018 | Stuff |
-| 5-23-2018 | Stuff |
+| 5-23-2018 | Able to start story, add to database, grab current story to play on add page, concatenate new clip to existing story and update database |
 | 5-22-2018 | Able to record audio files and add to database |
 | 5-21-2018 | Connect Travis and Coveralls; able to upload sound files and add to database |
 | 5-19-2018 | Initial Setup, install Django, create base home page with base css files, make profile component, install registration for user accounts, prepare for coveralls and travis |
@@ -44,3 +44,4 @@ Python 3, Django 2, CSS/SCSS, HTML, PostgreSQL, Travis CI, Coveralls
 - github.com/pygame/pygame
 - github.com/jrief/django-sass-processor
 - github.com/voxy/django-audio-recorder
+- stackoverflow.com/questions/35825680/concatenate-audio-files-python-2-7
