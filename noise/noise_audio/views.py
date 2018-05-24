@@ -13,7 +13,7 @@ class NewStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView):
     template_name = 'noise_audio/new_story.html'
     model = Audio
     form_class = AudioFileForm
-    success_url = reverse_lazy('add')
+    success_url = reverse_lazy('link')
     login_url = reverse_lazy('auth_login')
 
     def create_object(self, audio_file):
