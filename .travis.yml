@@ -32,12 +32,8 @@ before_install:
         tar Jxf ffmpeg-release-64bit-static.tar.xz --strip-components=1 -C ffmpeg-release
     )
 
-install:
-  - pip install tox
 script:
   - export PATH=$(readlink -f ffmpeg-release):$PATH
-  - tox -e $TOX_ENV
 cache:
   directories:
-    - .tox
     - ffmpeg-release
