@@ -30,7 +30,8 @@ class AudioAddForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        clip_id = kwargs['instance'].id
+        """Init."""
+        clip_id = kwargs.pop('clip_id')
         super().__init__(*args, **kwargs)
         self.fields['path'].widget.attrs['data-url'] = reverse('add', kwargs={'clip_id': clip_id})
         self.fields['path'].widget.attrs['data-django-audio-recorder'] = True

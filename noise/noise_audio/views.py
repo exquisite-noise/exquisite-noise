@@ -1,14 +1,8 @@
-from django.core.files.storage import default_storage
-from django.shortcuts import render
+from .models import Audio, AudioAdd
 from django.conf import settings
-from pydub import AudioSegment
-import os
-from .models import Audio
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from .convert import convert
-from .concat import concat_clips
 from audio_recorder.views import AudioFileCreateViewMixin
 from .forms import AudioFileForm, AudioAddForm
 
@@ -42,25 +36,17 @@ class NewStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView):
         kwargs = super().get_form_kwargs()
         return kwargs
 
-    # def form_valid(self, form):
-    #     """Validate form."""
-    #     import pdb; pdb.set_trace()
-    #     form.instance.creator = self.request.user
-    #     form.save()
-    #     form.instance.contributor.add(self.request.user)
-    #     return super().form_valid(form)
 
-
-class ContinueStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, UpdateView):
+class ContinueStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView):
     """Add to existing story."""
 
     template_name = 'noise_audio/add_clip.html'
-    model = Audio
+    model = AudioAdd
     success_url = reverse_lazy('home')
     login_url = reverse_lazy('auth_login')
     form_class = AudioAddForm
     context_object_name = 'story'
-    pk_url_kwarg = 'clip_id'
+    pk_url_kwargs = 'clip_id'
 
     def create_object(self, audio_file):
         """
@@ -68,22 +54,36 @@ class ContinueStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, UpdateView
 
         This function overwrites the function in the AudioFileCreateViewMixin.
         """
-        # new = Audio.objects.create(**{
-        #     self.create_field: audio_file,
-        # })
-        # new.contributor.add(self.request.user)
+        new = AudioAdd.objects.create(**{
+            self.create_field: audio_file,
+            'pk_master': Audio.objects.get(id=self.kwargs['clip_id']),
+            'user': self.request.user,
+        })
+        new.pk_master.contributor.add(self.request.user)
+        new.save()
 
-        # return new
-        pass
+        # concat clips
+        new_object = AudioAdd.objects.filter(pk_master=self.kwargs['clip_id']).last()
+        new_path = settings.BASE_DIR + new_object.audio_file.url
 
-    # def get_form_kwargs(self):
-    #     """."""
-    #     result = super().get_form_kwargs()
-    #     import pdb; pdb.set_trace()
-    #     result['clip_id'] = self
-    #     return result
+        prev_object = Audio.objects.filter(id=self.kwargs['clip_id']).first()
+        prev_path = settings.BASE_DIR + prev_object.audio_file.url
+
+        audio_prev = open(prev_path, 'rb').read()
+        audio_new = open(new_path, 'rb').read()
+        audio_join = audio_prev + audio_new
+        audio_final = open(prev_path, 'wb').write(audio_join)
+
+        return audio_final
+
+    def get_form_kwargs(self):
+        """Get form kwargs."""
+        kwargs = super().get_form_kwargs()
+        kwargs['clip_id'] = self.kwargs['clip_id']
+        return kwargs
 
     def post(self, request, *args, **kwargs):
+<<<<<<< HEAD
         """Replace post method."""
         filename = "story.mp3" # received file name
         file_obj = request.FILES['audio_file']
@@ -102,21 +102,14 @@ class ContinueStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, UpdateView
 
         story = concat_clips(story, new_clip_path)
         return
+=======
+        """Adding to post method."""
+        kwargs.pop('clip_id')
+        return super().post(request, *args, **kwargs)
+>>>>>>> 40371eb843865c352e9be1fe5402797617f3d504
 
     def get_context_data(self, **kwargs):
-        """Get context data."""
+        """Customize context data."""
         context = super().get_context_data(**kwargs)
+        context['story'] = Audio.objects.get(id=self.kwargs['clip_id'])
         return context
-
-    def form_valid(self, form):
-        """Validate form."""
-        # import pdb; pdb.set_trace()
-        form.instance.creator = self.request.user
-        prev_clip = form.instace.path
-
-        new_clip = form.instance.concat_file
-        form.instance.concat_file = concat_clips(prev_clip, new_clip)
-
-        form.instance.contributor.add(self.request.user)
-        form.save()
-        return super().form_valid(form)
