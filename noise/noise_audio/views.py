@@ -6,10 +6,15 @@ from django.views.generic import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse_lazy
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+from django.conf import settings
 from .convert import convert
 from .concat import concat_clips
 from audio_recorder.views import AudioFileCreateViewMixin
 from .forms import AudioFileForm, AudioAddForm
+
+import ffmpeg
 
 
 class NewStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView):
@@ -67,17 +72,23 @@ class ContinueStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, UpdateView
 
         This function overwrites the function in the AudioFileCreateViewMixin.
         """
+        # path = default_storage.save('tmp/temp.mp3', ContentFile(audio_file.read()))
+        tmp_file = os.path.join(settings.MEDIA_ROOT, 'tmp/temp.mp3')
+        # with open(tmp_file, 'wb') as f:
+        #     f.write(audio_file.read())
+        ffmpeg.input('pipe:').output(tmp_file).run()
         import pdb; pdb.set_trace()
-        record = Audio.objects.filter(id=self.kwargs['clip_id']).first()
-        story = 'noise' + record.audio_file.url
-        updated_story = concat_clips(story, audio_file)
 
-        record.audio_file.file = SimpleUploadedFile(
-            name='test.mp3',
-            content=updated_story.read(),
-            content_type='audio/mpeg'
-            )
-        record.save()
+        record = Audio.objects.filter(id=self.kwargs['clip_id']).first()
+        record_path = 'noise' + record.audio_file.url
+        updated_story = concat_clips(record_path, tmp_file)
+
+        # record.audio_file.file = SimpleUploadedFile(
+        #     name='test.mp3',
+        #     content=updated_story.read(),
+        #     content_type='audio/mpeg'
+        #     )
+        # record.save()
         return record
 
     def post(self, request, *args, **kwargs):
