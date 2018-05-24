@@ -1,0 +1,15 @@
+{% extends 'generic/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="share-link container">
+  <h2>Share to add!</h2>
+  <p>Great! <a href="{% url "add" clip_id=story_id %}">{{ story_topic }}</a> has been created. </p>
+  <p>Copy this link and send it to your friends to add to your story.</p>
+  <p class="copy-link">{{ story_link }}</p>
+  <button class="copy-button">Copy</button>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="{% static "copy.js" %}"></script>
+{% endblock %}
+ 
