@@ -7,10 +7,15 @@ from django.views.generic import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse_lazy
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+from django.conf import settings
 from .convert import convert
 from .concat import concat_clips
 from audio_recorder.views import AudioFileCreateViewMixin
 from .forms import AudioFileForm, AudioAddForm
+
+import ffmpeg
 
 
 class NewStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView):
