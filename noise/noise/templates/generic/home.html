@@ -17,10 +17,11 @@
     </div>
   </div>
  
-  {% csrf_token %}
+ {% csrf_token %}
   {% for clip in clips %}
-  <p>{{clip.topic}}</p>
+  <a href="{% url "add" clip_id=clip.id %}"><p>{{clip.topic}}</p></a>
   <audio src="{{clip.audio_file.url}}" controls></audio>
+  <p>Shareable Link to Add to Story: localhost:8000/audio/add/{{clip.id}}</p>
   {% endfor %}
 </div>
 {% endblock %}
