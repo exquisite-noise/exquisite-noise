@@ -11,7 +11,6 @@ class Audio(AudioFileMixin, models.Model):
     contributor = models.ManyToManyField(User, related_name='audio')
     topic = models.CharField(max_length=100, blank=True, null=True)
     path = models.FileField(upload_to='clips/')
-    concat_file = models.FileField(upload_to='concat/', blank=True, null=True)
     creator = models.ForeignKey(User, on_delete=models.SET_NULL,
                                 related_name='creator', null=True)
     date_published = models.DateField(blank=True, null=True)
@@ -35,3 +34,11 @@ def set_published_date(sender, instance, **kwargs):
     if instance.published == 'PUB' and not instance.date_published:
         instance.date_published = timezone.now()
         instance.save()
+
+
+class AudioAdd(AudioFileMixin, models.Model):
+    """Add audio file"""
+    user = models.ForeignKey(User, related_name='new_clips', on_delete=models.SET_NULL, null=True)
+    audio_file = models.FileField(upload_to='temp/')
+    pk_master = models.ForeignKey(Audio, on_delete=models.SET_NULL,
+                                  related_name='new_audio_files', null=True)
