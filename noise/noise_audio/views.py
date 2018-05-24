@@ -10,8 +10,6 @@ from django.urls import reverse_lazy
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.conf import settings
-from .convert import convert
-from .concat import concat_clips
 from audio_recorder.views import AudioFileCreateViewMixin
 from .forms import AudioFileForm, AudioAddForm
 
