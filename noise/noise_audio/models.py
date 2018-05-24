@@ -37,7 +37,8 @@ def set_published_date(sender, instance, **kwargs):
 
 
 class AudioAdd(AudioFileMixin, models.Model):
-    """Add audio file"""
+    """Model to hold temporary clip to add to existing story."""
+
     user = models.ForeignKey(User, related_name='new_clips', on_delete=models.SET_NULL, null=True)
     audio_file = models.FileField(upload_to='temp/')
     pk_master = models.ForeignKey(Audio, on_delete=models.SET_NULL,
