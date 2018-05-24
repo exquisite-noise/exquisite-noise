@@ -23,5 +23,3 @@ after_success:
 
 notifications:
   email: false
-
-rvm: 1.9.2
