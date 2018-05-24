@@ -83,30 +83,9 @@ class ContinueStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView
         return kwargs
 
     def post(self, request, *args, **kwargs):
-<<<<<<< HEAD
-        """Replace post method."""
-        filename = "story.mp3" # received file name
-        file_obj = request.FILES['audio_file']
-        with default_storage.open(settings.MEDIA_ROOT + filename, 'wb+') as destination:
-            for chunk in file_obj.chunks():
-                destination.write(chunk)
-        new_clip_path = settings.MEDIA_ROOT + filename
-
-        record = Audio.objects.filter(id=self.kwargs['clip_id']).first()
-        story = settings.MEDIA_ROOT + record.audio_file.url
-
-        # new_clip = request.FILES['audio_file']
-        # print('****', new_clip)
-        # new_clip_path = str(os.path.join(settings.MEDIA_ROOT, new_clip))
-        # print(new_clip)
-
-        story = concat_clips(story, new_clip_path)
-        return
-=======
         """Adding to post method."""
         kwargs.pop('clip_id')
         return super().post(request, *args, **kwargs)
->>>>>>> 40371eb843865c352e9be1fe5402797617f3d504
 
     def get_context_data(self, **kwargs):
         """Customize context data."""
