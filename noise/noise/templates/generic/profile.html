@@ -3,7 +3,18 @@
 {% block content %}
 <div class="profile-page container">
   <h3>{{ user.username }}'s Stories</h3>
-  {% for story in profile %}
+  <h4>Created</h4>
+  {% for story in created %}
+  <ul>
+    <li>
+        <a href="{% url "detail" clip_id=story.id %}">{{story.topic}}</a>
+
+    </li>
+  </ul>
+  {% endfor %}
+
+  <h4>Contributed</h4>
+  {% for story in contributed %}
   <ul>
     <li>
         <a href="{% url "detail" clip_id=story.id %}">{{story.topic}}</a>

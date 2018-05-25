@@ -29,11 +29,16 @@ class ProfileView(ListView):
 
     def get_queryset(self):
         """Get object."""
-        return Audio.objects.filter(creator=self.kwargs['user_id'])
+        created = Audio.objects.filter(creator=self.kwargs['user_id'])
+        contributed = Audio.objects.filter(contributor=self.kwargs['user_id'])
+        return [created, contributed]
 
     def get_context_data(self, **kwargs):
         """Customize context data."""
         context = super().get_context_data(**kwargs)
+        context['created'] = context['profile'][0]
+        context['contributed'] = context['profile'][1]
+        del context['profile']
         return context
 
 
