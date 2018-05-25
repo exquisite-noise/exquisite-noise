@@ -6,7 +6,7 @@
   <h2>Share to add!</h2>
   <p>Great! <a href="{% url "detail" clip_id=story_id %}">{{ story_topic }}</a> has been created. </p>
   <p>Copy this link and send it to your friends to add to your story.</p>
-  <p class="copy-link">{{ story_link }}</p>
+  <input class="copy-link" value="{{ story_link }}" readonly />
   <button class="copy-button">Copy</button>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

@@ -1,6 +1,6 @@
 'use strict';
 
 $('.copy-button').on('click', () => {
-  $('.copy-link').select();
+  document.getElementsByClassName('copy-link')[0].select();
   document.execCommand('copy');
 });
