@@ -14,6 +14,7 @@ var instructionHeader = document.getElementById('instruction-header');
 var formData;
 var audioCtx = new (window.AudioContext || webkitAudioContext)();
 var canvasCtx = canvas.getContext('2d');
+var pk_master_var;
 
 $(submitOverride).hide();
 $(recordButton).hide();
@@ -92,6 +93,8 @@ promise.then(function(stream) {
     var formEl = document.getElementById('new-audio-form');
     formData = new FormData(formEl);
     formData.append('audio_file', blob, "story.mp3");
+    pk_master_var = location.pathname.slice(11,-1);
+    // formData.append('pk_master', pk_master_var);
     $(timerIndicator).css('background-color', '');
     $(recordButton).text('Re-Record');
     $(canvas).hide();
@@ -111,11 +114,12 @@ promise.then(function(stream) {
         recordButton.disabled = false;
         audioFile.value = data.id;
         audio.src = data.url;
-        window.location = '../detail/4';
+        window.location = '/audio/detail/' + pk_master_var;
       },
       error: function(jqXHR, textStatus, errorThrown){
         uploadSpan.classList.add('hidden');
         recordButton.disabled = false;
+        window.location = '/audio/detail/' + pk_master_var;
         console.error('jqXHR:', jqXHR);
         console.error('textStatus:', textStatus);
         console.error('errorThrown:', errorThrown);
