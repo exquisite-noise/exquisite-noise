@@ -3,6 +3,7 @@ branch = True
 
 omit =
     */ENV/*
+    */env/*
     */migrations/*
     */test/*
     */admin.py
@@ -13,6 +14,7 @@ omit =
     */manage.py
     */wsgi.py
     */production.py
+    */audio_recorder/*
 
 source =
     noise

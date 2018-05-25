@@ -29,7 +29,7 @@ class AudioAddForm(forms.ModelForm):
             'path': AudioFileWidget(),
         }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs): # pragma: no cover
         """Init."""
         clip_id = kwargs.pop('clip_id')
         super().__init__(*args, **kwargs)
