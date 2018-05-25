@@ -15,9 +15,10 @@
       <nav>
         <ul>
           <li><a href="{% url "home" %}">Home</a></li>
+          <li><a href="{% url "about" %}">Meet the Devs</a></li>
           {% if user.is_authenticated %}
-          <li><a href="{% url "about" %}">About Us</a></li>
           <li><a href="{% url "new" %}">New Story</a></li>
+          <li><a href="{% url "profile" user_id=user.id %}">Profile</a></li>
           {% if user.is_superuser %}
           <li><a href="{% url "admin:index" %}">Admin</a></li>
           {% endif %}

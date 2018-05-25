@@ -143,3 +143,12 @@ class AudioUnitTests(TestCase):
         detail_story_view = DetailStoryView.as_view()
         response = detail_story_view(request, clip_id=1)
         self.assertEqual(response.status_code, 200)
+
+    def test_profile_view(self):
+        from noise.views import ProfileView
+        request = self.request.get('')
+        request.user = self.test_user
+        profile_view = ProfileView.as_view()
+        response = profile_view(request, user_id=1)
+        self.assertEqual(response.status_code, 200)
+
