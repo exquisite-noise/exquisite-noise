@@ -142,5 +142,4 @@ class DetailStoryView(DetailView):
 
         context = super().get_context_data(**kwargs)
         context.update({'host': self.request.META['HTTP_HOST']})
-        # import pdb; pdb.set_trace()
         return context
