@@ -30,3 +30,15 @@ h4 {
 p {
     font-size: $font * .4;
 }
+
+button {
+  text-decoration: none;
+  color: $white;
+  padding: 20px;
+  margin: 0 auto;
+  display: block;
+  color: $white;
+  font-size: $font * .4;
+  background-color: $golden;
+  border-radius: 3px;
+}

@@ -9,12 +9,12 @@
     <div class="add-new-audio container main-controls">
       <canvas class="visualizer" height="60px"></canvas>
       <form method="post" enctype="multipart/form-data" id="new-audio-form">
-        <p id="status-element"><span id="timer-indicator">This topic will be shown to everyone who contributes to you clip, what would you like them to have in mind when they record?</span></p>
+        <p id="status-element"><span id="timer-indicator">This topic will be shown to everyone who contributes to your clip.</span></p>
 
         {% csrf_token %}
         {{ form.as_p }}
-        <button id="submit-topic-button">Submit Topic</button>
       </form>
+      <button id="submit-topic-button">Submit Topic</button>
       <button id="submit-override">Submit Audio</button>
     </div>
   </div>

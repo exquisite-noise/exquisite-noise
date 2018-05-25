@@ -19,7 +19,7 @@
     height: 500px;
     margin: auto;
   }
-  button#submit-topic-button {
+  button #submit-topic-button, button #submit-override {
     text-decoration: none;
     color: $white;
     padding: 20px;

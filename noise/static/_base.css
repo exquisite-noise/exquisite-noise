@@ -74,6 +74,17 @@ h4 {
 p {
   font-size: 20px; }
 
+button {
+  text-decoration: none;
+  color: #fff;
+  padding: 20px;
+  margin: 0 auto;
+  display: block;
+  color: #fff;
+  font-size: 20px;
+  background-color: #F98E02;
+  border-radius: 3px; }
+
 header {
   height: 35px;
   background-color: #fff; }
@@ -202,7 +213,7 @@ header {
     #topic-background-container #topic-container h4, #topic-background-container #topic-container p {
       text-align: center;
       margin: 15px 0px; }
-  #topic-background-container button#submit-topic-button {
+  #topic-background-container button #submit-topic-button, #topic-background-container button #submit-override {
     text-decoration: none;
     color: #fff;
     padding: 20px;
