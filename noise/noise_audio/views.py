@@ -121,7 +121,8 @@ class LinkView(TemplateView):
         """Customize context data."""
         context = super().get_context_data(**kwargs)
         id = Audio.objects.all().last().id
-        context['story_link'] = f'localhost:8000/audio/add/{id}'
+        # import pdb; pdb.set_trace()
+        context['story_link'] = 'https://{}/audio/add/{}'.format(self.request.META['HTTP_HOST'], id)
         context['story_id'] = id
         context['story_topic'] = Audio.objects.all().last().topic
         return context
