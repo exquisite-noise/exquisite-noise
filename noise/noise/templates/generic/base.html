@@ -31,8 +31,7 @@
     </div>
     <div id="right-block">
       {% if user.is_authenticated %}
-      <span>Welcome {{ user.username }}</span>
-      <button class="start-button"><a href="{% url "new" %}">Start Recording</a></button>
+      <span>{{ user.username|title }}</span>
       {% else %}
       <button class="start-button"><a href="{% url "registration_register" %}">Signup</a></button>
       <button class="start-button"><a href="{% url "auth_login" %}">Signin</a></button>

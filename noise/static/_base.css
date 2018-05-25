@@ -54,23 +54,36 @@ body {
   background-color: #7CDBD5; }
 
 h1 {
-  font-size: 60px;
+  font-size: 75px;
   font-family: 'Lobster', cursive; }
 
 h2, h3, h4, h5, p {
   font-family: 'Roboto', sans-serif; }
 
 h2 {
-  font-size: 45px; }
+  font-size: 65px;
+  font-family: 'Lobster', cursive;
+  color: #F53240; }
 
 h3 {
-  font-size: 40px; }
+  font-size: 30px; }
 
 h4 {
-  font-size: 35px; }
+  font-size: 25px; }
 
 p {
-  font-size: 25px; }
+  font-size: 20px; }
+
+button {
+  text-decoration: none;
+  color: #fff;
+  padding: 20px;
+  margin: 0 auto;
+  display: block;
+  color: #fff;
+  font-size: 20px;
+  background-color: #F98E02;
+  border-radius: 3px; }
 
 header {
   height: 35px;
@@ -90,7 +103,8 @@ header {
         text-decoration: none;
         color: #000; }
   header #right-block {
-    float: right; }
+    float: right;
+    margin-right: 15px; }
     header #right-block span {
       font-size: 20px;
       line-height: 35px; }
@@ -98,31 +112,116 @@ header {
       color: #fff;
       font-size: 20px;
       background-color: #F98E02;
-      margin-top: 3px;
-      margin-right: 15px; }
+      margin-top: 3px; }
       header #right-block .start-button a {
         text-decoration: none;
         color: #fff; }
 
-#site-intro-container {
-  width: 60%;
-  margin: auto; }
-  #site-intro-container #site-name {
-    height: 100px; }
-    #site-intro-container #site-name h1 {
+#main-background-container {
+  width: 100%;
+  position: relative;
+  height: 800px; }
+  #main-background-container #site-intro-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 500px;
+    margin: auto; }
+    #main-background-container #site-intro-container #site-name h1 {
       line-height: 100px;
       color: #F53240;
-      text-align: center; }
-  #site-intro-container #site-description h4 {
-    color: #fff; }
-  #site-intro-container .start-button button {
+      text-align: center;
+      font-size: 80px; }
+    #main-background-container #site-intro-container #site-description {
+      margin-top: 60px; }
+      #main-background-container #site-intro-container #site-description p {
+        color: #000;
+        font-size: 40px; }
+    #main-background-container #site-intro-container .start-button {
+      margin-top: 60px; }
+      #main-background-container #site-intro-container .start-button button {
+        padding: 20px;
+        margin: 0 auto;
+        display: block;
+        color: #fff;
+        font-size: 20px;
+        background-color: #F98E02;
+        border-radius: 3px; }
+        #main-background-container #site-intro-container .start-button button a {
+          text-decoration: none;
+          color: #fff; }
+
+#recent-sounds-background-container {
+  width: 100%;
+  background-color: #02C8A7;
+  position: relative;
+  height: 600px; }
+  #recent-sounds-background-container #recent-sounds-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto; }
+    #recent-sounds-background-container #recent-sounds-container h2 {
+      text-align: center;
+      color: #F53240; }
+    #recent-sounds-background-container #recent-sounds-container .recent-sound-listings {
+      height: 80px;
+      margin-top: 30px;
+      margin-top: 30px; }
+      #recent-sounds-background-container #recent-sounds-container .recent-sound-listings hr {
+        width: 40%; }
+      #recent-sounds-background-container #recent-sounds-container .recent-sound-listings #topic-label {
+        text-align: center;
+        margin-bottom: 20px; }
+      #recent-sounds-background-container #recent-sounds-container .recent-sound-listings .sound-listing-text {
+        width: 60%;
+        display: inline-block; }
+        #recent-sounds-background-container #recent-sounds-container .recent-sound-listings .sound-listing-text p {
+          color: #EFECE7; }
+        #recent-sounds-background-container #recent-sounds-container .recent-sound-listings .sound-listing-text input {
+          width: 287px;
+          text-align: center;
+          margin-bottom: 10px; }
+      #recent-sounds-background-container #recent-sounds-container .recent-sound-listings .sound-listing-player {
+        width: 39%;
+        display: inline-block; }
+
+#fake-footer {
+  width: 100%;
+  height: 100px; }
+
+#topic-background-container {
+  width: 100%;
+  position: relative;
+  height: 800px; }
+  #topic-background-container #topic-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 500px;
+    margin: auto; }
+    #topic-background-container #topic-container h2 {
+      text-align: center;
+      margin-bottom: 30px; }
+    #topic-background-container #topic-container h4, #topic-background-container #topic-container p {
+      text-align: center;
+      margin: 15px 0px; }
+  #topic-background-container button #submit-topic-button, #topic-background-container button #submit-override {
+    text-decoration: none;
+    color: #fff;
+    padding: 20px;
+    margin: 0 auto;
+    display: block;
     color: #fff;
     font-size: 20px;
     background-color: #F98E02;
-    margin-top: 3px;
-    margin-right: 15px; }
-    #site-intro-container .start-button button a {
-      text-decoration: none;
-      color: #fff; }
+    border-radius: 3px; }
 
-/*# sourceMappingURL=../../../../../../../../../../static/_base.css.map */
+/*# sourceMappingURL=../../../../../../../../static/_base.css.map */
