@@ -25,7 +25,7 @@ class Audio(AudioFileMixin, models.Model):
 
     def __str__(self):
         """String."""
-        return f'{self.topic}'
+        return str(self.topic)
 
 
 @receiver(models.signals.post_save, sender=Audio)
