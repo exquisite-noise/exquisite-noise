@@ -89,7 +89,7 @@ header {
   height: 35px;
   background-color: #fff; }
   header #left-block {
-    width: 50%;
+    width: 70%;
     display: inline-block; }
     header #left-block nav ul {
       list-style-type: none;
@@ -230,4 +230,25 @@ header {
 #prev-clip-player {
   text-align: center; }
 
+<<<<<<< HEAD
+/*# sourceMappingURL=../../../../../../../../../../static/_base.css.map */
+=======
+.about-us h2 {
+  margin-top: 50px;
+  margin-bottom: 30px; }
+
+.about-us section {
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto; }
+
+.about-us #profile-pic {
+  width: 400px;
+  display: block;
+  margin: auto; }
+
+.about-us a img {
+  width: 100px; }
+
 /*# sourceMappingURL=../../../../../../../../static/_base.css.map */
+>>>>>>> staging

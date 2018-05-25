@@ -99,7 +99,7 @@ class ContinueStoryForm(LoginRequiredMixin, AudioFileCreateViewMixin, CreateView
         """Customize context data."""
         context = super().get_context_data(**kwargs)
         context['story'] = Audio.objects.get(id=self.kwargs['clip_id'])
-        snippet = AudioSegment.from_file(context['story'].audio_file.path)[-2000:]
+        snippet = AudioSegment.from_file(context['story'].audio_file.path)[-5000:]
         snippet_root = os.path.join(settings.MEDIA_ROOT, 'snippets')
         try:
             os.mkdir(snippet_root)
