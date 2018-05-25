@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="detail-page container">
-<h2>{{story.topic}}</h2>
+<h2>Topic: {{story.topic}}</h2>
   <h3>Created by {{story.creator}}</h3>
   <audio src="{{story.audio_file.url}}" controls></audio>
   {% if story.date_published %}
