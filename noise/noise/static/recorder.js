@@ -27,7 +27,9 @@ promise.then(function(stream) {
   visualize(stream);
 
   submitTopicButton.addEventListener('click', function() {
-
+    $(instructionHeader).text('2. Record your audio');
+    $(recordButton).fadeIn();
+    $(timerIndicator).text('Press record and let record your 15 second of exquisitness! Feel free to re-record it as many times as you like. Once you)
   });
 
   recordButton.addEventListener('click', function(){
