@@ -62,9 +62,10 @@ promise.then(function(stream) {
       if (count < 16) {
         if (count === 15) {
           recorder.start();
+          $(recordButton).text('Recording...');
         }
         document.getElementById("timer-indicator").innerHTML = '* Recording: ' + count + ' *';
-      } else {        
+      } else {
         document.getElementById("timer-indicator").innerHTML = 'Recording will begin in ' + (count - 15) + '';
       }
     }
