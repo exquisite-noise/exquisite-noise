@@ -11,6 +11,7 @@
 
 ## Overview
 <!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for a Code Fellows 401 class. (i.e. What's your problem domain?) -->
+Our daily lives are so bombarded with technology that our team wanted to create an application built off of games we played growing up. This is an interactive game where you create a topic and record a portion of a story. Once you're finished you will be provided with a link to send to your friends who can add to the story.
 
 ## Getting Started
 <!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
@@ -24,7 +25,8 @@
     export DB_NAME='noise'
     export DB_USER=''
     export DB_PASSWORD=''
-    export DB_HOST='localhost'```
+    export DB_HOST='localhost'
+    ```
 - Activate your virtual environment
 - Clone this repo onto your machine
 - Inside the directory, install the requirements `pip install -r requirements.txt`
