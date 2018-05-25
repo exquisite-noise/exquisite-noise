@@ -135,3 +135,11 @@ class AudioUnitTests(TestCase):
         link_view = LinkView.as_view()
         response = link_view(request)
         self.assertEqual(response.status_code, 200)
+
+    def test_detail_view(self):
+        from noise_audio.views import DetailStoryView
+        request = self.request.get('')
+        request.user = self.test_user
+        detail_story_view = DetailStoryView.as_view()
+        response = detail_story_view(request, clip_id=1)
+        self.assertEqual(response.status_code, 200)
