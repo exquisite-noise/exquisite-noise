@@ -8,6 +8,11 @@ django-appconf==1.0.2
 django-compressor==2.2
 django-registration==2.4.1
 django-sass-processor==0.7
+factory-boy==2.11.1
+Faker==0.8.15
+ffmpeg-python==0.1.11
+ffmpy==0.2.2
+future==0.16.0
 ipython==6.4.0
 ipython-genutils==0.2.0
 jedi==0.12.0
@@ -18,11 +23,14 @@ pickleshare==0.7.4
 prompt-toolkit==1.0.15
 psycopg2-binary==2.7.4
 ptyprocess==0.5.2
+pydub==0.21.0
 Pygments==2.2.0
+python-dateutil==2.7.3
 pytz==2018.4
 rcssmin==1.0.6
 rjsmin==1.0.12
 simplegeneric==0.8.1
 six==1.11.0
+text-unidecode==1.2
 traitlets==4.3.2
 wcwidth==0.1.7

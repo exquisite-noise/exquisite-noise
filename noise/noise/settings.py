@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', None)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', False)
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split()
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split()
 
 
 # Application definition
@@ -37,9 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'audio_recorder',
     'coverage',
+    'ffmpy',
     'noise',
-    'noise_profile',
+    'noise_audio',
+    'pydub',
     'sass_processor',
 ]
 
@@ -136,7 +139,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'MEDIA')
 
 # Django Registration Settings
 ACCOUNT_ACTIVATION_DAYS = 1
-LOGIN_REDIRECT_URL = '/profile'
+LOGIN_REDIRECT_URL = '/audio/new/'
 if DEBUG:  # pragma: no cover
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

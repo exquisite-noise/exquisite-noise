@@ -1,27 +1,44 @@
 body {
-    margin: 10px;
     font-family: Helvetica, sans-serif;
-    color: $white;
-    background-color: $black;
-    text-align: center;
+    color: $black;
+    background-color: $sky;
 }
 
 h1 {
-    font-size: $font;
-}
-
+    font-size: $font * 1.5;
+    font-family: 'Lobster', cursive;
+  }
+  
+h2, h3, h4, h5, p {
+    font-family: 'Roboto', sans-serif;
+  }
+  
 h2 {
-    font-size: $font * .9;
+    font-size: $font * 1.3;
+    font-family: 'Lobster', cursive;
+    color: $coral;
 }
 
 h3 {
-    font-size: $font * .8;
+    font-size: $font * .6;
 }
 
 h4 {
-    font-size: $font * .7;
+    font-size: $font * .5;
 }
 
 p {
-    font-size: $font * .5;
+    font-size: $font * .4;
+}
+
+button {
+  text-decoration: none;
+  color: $white;
+  padding: 20px;
+  margin: 0 auto;
+  display: block;
+  color: $white;
+  font-size: $font * .4;
+  background-color: $golden;
+  border-radius: 3px;
 }

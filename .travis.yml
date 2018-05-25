@@ -21,3 +21,19 @@ after_success:
 
 notifications:
   email: false
+
+
+language: python
+before_install:
+  - >
+    [ -f ffmpeg-release/ffmpeg ] || (
+        curl -O https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz &&
+        mkdir -p ffmpeg-release &&
+        tar Jxf ffmpeg-release-64bit-static.tar.xz --strip-components=1 -C ffmpeg-release
+    )
+
+script:
+  - export PATH=$(readlink -f ffmpeg-release):$PATH
+cache:
+  directories:
+    - ffmpeg-release

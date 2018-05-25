@@ -1,0 +1,28 @@
+{% extends 'generic/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="about-us container">
+  <section>
+      <h2>Exquisite Devs</h2>
+  <img class="profile-pic" src="{% static "beverly.png" %}" alt="Beverly">
+  <h4>Beverly</h3>
+  <a href="https://www.linkedin.com/in/beverly-pham/" target="_blank"><img class="icon" src="{% static "githubicon.png" %}" alt="GitHub"></a>
+  <a href="https://github.com/zarkle" target="_blank"><img class="icon" src="{% static "linkedinicon.png" %}" alt="LinkedIn"></a>
+</section>
+
+<section>
+  <img class="profile-pic" src="{% static "brandon.png" %}" alt="Brandon">
+  <h4>Brandon</h3>
+  <a href="https://www.linkedin.com/in/brandonholderman/" target="_blank"><img class="icon" src="{% static "githubicon.png" %}" alt="GitHub"></a>
+  <a href="https://github.com/brandonholderman" target="_blank"><img class="icon" src="{% static "linkedinicon.png" %}" alt="LinkedIn"></a>
+</section>
+
+<section>
+  <img class="profile-pic" src="{% static "tyler.png" %}" alt="Tyler">
+  <h4>Tyler</h3>
+  <a href="https://www.linkedin.com/in/tylerfishbone/" target="_blank"><img class="icon" src="{% static "githubicon.png" %}" alt="GitHub"></a>
+  <a href="https://github.com/tyler-fishbone" target="_blank"><img class="icon" src="{% static "linkedinicon.png" %}" alt="LinkedIn"></a>
+</section>
+</div>
+{% endblock %}
