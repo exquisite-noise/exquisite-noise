@@ -2,6 +2,16 @@
 
 {% block content %}
 <div class="profile-page container">
+  <h3>{{ user.username }}'s Stories</h3>
+  {% for story in profile %}
+  <ul>
+    <li>
+        <a href="{% url "detail" clip_id=story.id %}">{{story.topic}}</a>
+
+    </li>
+  </ul>
+  {% endfor %}
+
 
 </div>
 {% endblock %}
