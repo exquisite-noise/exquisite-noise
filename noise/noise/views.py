@@ -12,7 +12,8 @@ class HomeView(TemplateView):
         """Customize context."""
         context = super().get_context_data(**kwargs)
 
-        clips = Audio.objects.all()[-3:]
+        clips = Audio.objects.all()[::-1]
+        clips = clips[:3]
 
         context.update({
             'host': self.request.META['HTTP_HOST'],

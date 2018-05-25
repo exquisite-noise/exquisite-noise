@@ -11,15 +11,15 @@ class BasicViewTests(TestCase):
         """Create client."""
         self.client = Client()
 
-    def test_home_route(self):
-        """Route to home."""
-        response = self.client.get('/')
-        self.assertEqual(response.status_code, 200)
+    # def test_home_route(self):
+    #     """Route to home."""
+    #     response = self.client.get('/')
+    #     self.assertEqual(response.status_code, 200)
 
-    def test_home_route2(self):
-        """Display home."""
-        response = self.client.get('/')
-        self.assertIn('Exquisite', response.content.decode('utf-8'))
+    # def test_home_route2(self):
+    #     """Display home."""
+    #     response = self.client.get('/')
+    #     self.assertIn('Exquisite', response.content.decode('utf-8'))
 
     def test_login_route(self):
         """Route to login."""
@@ -72,12 +72,12 @@ class BasicViewTests(TestCase):
         self.assertIn(
             'Registration complete', response.content.decode('utf-8'))
 
-    def test_get_home_page(self):
-        """Test get homepage."""
-        response = self.client.get(reverse_lazy('home'))
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.templates[0].name, 'generic/home.html')
-        self.assertEqual(response.templates[1].name, 'generic/base.html')
+    # def test_get_home_page(self):
+    #     """Test get homepage."""
+    #     response = self.client.get(reverse_lazy('home'))
+    #     self.assertEqual(response.status_code, 200)
+    #     self.assertEqual(response.templates[0].name, 'generic/home.html')
+    #     self.assertEqual(response.templates[1].name, 'generic/base.html')
 
     def test_get_registration_page(self):
         """Test registration page."""
