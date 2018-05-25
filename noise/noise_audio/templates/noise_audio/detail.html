@@ -1,12 +1,20 @@
 {% extends 'generic/base.html' %}
+{% load static %}
 
 {% block content %}
-<div class="detail-page container">
-<h2>Topic: {{story.topic}}</h2>
-  <h3>Created by {{story.creator}}</h3>
-  <audio src="{{story.audio_file.url}}" controls></audio>
-  {% if story.date_published %}
-  <p>Created: {{story.date_published}}</p>
-  {% endif %}
+<div id="detail-page-background">
+  <div id="detail-page">
+    <h2>Topic: {{story.topic}}</h2>
+    <h3>Created by {{story.creator}}</h3>
+    <audio src="{{story.audio_file.url}}" controls></audio>
+    <!-- <p>Share the link below to a friend to add more to it!</p>
+      <input readonly value="localhost:8000/audio/add/{{clip.id}}"></input> -->
+    {% if story.date_published %}
+    <p>Created: {{story.date_published}}</p>
+    {% endif %}
+    <input readonly class="copy-link" value="https://{{host}}{% url "add" clip_id=story.id %}"></input>
+    <button class="copy-button">Copy</button>
+  </div>
 </div>
+<script src="{% static "copy.js" %}"></script>
 {% endblock %}

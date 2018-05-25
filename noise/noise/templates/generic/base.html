@@ -35,8 +35,8 @@
       {% if user.is_authenticated %}
       <span>{{ user.username|title }}</span>
       {% else %}
-      <button class="start-button"><a href="{% url "registration_register" %}">Signup</a></button>
-      <button class="start-button"><a href="{% url "auth_login" %}">Signin</a></button>
+      <!-- <button class="start-button"><a href="{% url "registration_register" %}">Signup</a></button>
+      <button class="start-button"><a href="{% url "auth_login" %}">Signin</a></button> -->
       {% endif %}
 
     </div>

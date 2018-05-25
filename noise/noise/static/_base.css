@@ -246,3 +246,71 @@ header {
 
 .about-us a img {
   width: 100px; }
+
+#share-link-background {
+  width: 100%;
+  position: relative;
+  height: 800px; }
+  #share-link-background #share-link-div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 500px;
+    margin: auto; }
+    #share-link-background #share-link-div h2, #share-link-background #share-link-div p, #share-link-background #share-link-div input {
+      text-align: center;
+      margin-top: 15px;
+      margin-bottom: 15px; }
+    #share-link-background #share-link-div input {
+      width: 200px;
+      display: block;
+      margin: 30px auto; }
+
+#detail-page-background {
+  width: 100%;
+  position: relative;
+  height: 800px; }
+  #detail-page-background #detail-page {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 500px;
+    margin: auto; }
+    #detail-page-background #detail-page h2, #detail-page-background #detail-page h3, #detail-page-background #detail-page p, #detail-page-background #detail-page input {
+      text-align: center;
+      margin-top: 30px; }
+    #detail-page-background #detail-page input, #detail-page-background #detail-page audio {
+      width: 200px;
+      display: block;
+      margin: 30px auto; }
+
+#profile-page-background {
+  width: 100%;
+  position: relative;
+  height: 800px; }
+  #profile-page-background #profile-page {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 500px;
+    margin: auto; }
+    #profile-page-background #profile-page h4 {
+      margin: 15px; }
+    #profile-page-background #profile-page ul {
+      margin: 15px; }
+    #profile-page-background #profile-page li {
+      list-style: square; }
+    #profile-page-background #profile-page h2, #profile-page-background #profile-page p, #profile-page-background #profile-page input, #profile-page-background #profile-page h3 {
+      text-align: center;
+      margin-top: 15px;
+      margin-bottom: 15px; }
+    #profile-page-background #profile-page input {
+      width: 200px;
+      display: block;
+      margin: 30px auto; }

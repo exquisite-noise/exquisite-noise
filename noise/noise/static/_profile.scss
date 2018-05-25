@@ -1,8 +1,8 @@
-#share-link-background {
+#profile-page-background {
   width: 100%;
   position: relative;
   height: 800px;
-  #share-link-div {
+  #profile-page {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -10,8 +10,17 @@
     width: 60%;
     height: 500px;
     margin: auto;
+    h4 {
+      margin: 15px;
+    }
+    ul {
+      margin: 15px;
+    }
+    li {
+      list-style: square;
+    }
 
-    h2, p, input {
+    h2, p, input, h3 {
       text-align: center;
       margin-top: 15px;
       margin-bottom: 15px;
@@ -22,6 +31,4 @@
       margin : 30px auto;
     }
   }
-
-
 }
