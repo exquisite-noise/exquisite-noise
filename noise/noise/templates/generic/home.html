@@ -3,25 +3,44 @@
 
 {% block content %}
 <div class="home-page">
-  <div id="site-intro-container">
-    <div id="site-name">
-      <h1>Exquisite Noise</h1>
-    </div>
-    <div id="site-description"> 
-      <h4>Record a 15 second audio clip and send it to your friend, they'll hear the last 5 and add 15 seconds of their own to it. 
-      </h4> 
-      <h4>Keep sharing it to add even more and see how it evolves (exquisitely we hope!).</h4>
-    </div>
-    <div class="start-button">
-        <button><a href="{% url "new" %}">Start Recording</a></button>
+  <div id="main-background-container">
+    <div class="main-container" id="site-intro-container">
+      <div id="site-name">
+        <h1>Exquisite Noise</h1>
+      </div>
+      <div id="site-description"> 
+        <p>1. Record a 15 second audio clip and share it with a friend.</p>
+        <br>
+        <p>2. They hear the last 5 seconds of your clip and add 15 seconds of their own.</p>
+        <br>
+        <p>3. They share that to add even more and see how it evolves!</p>
+      </div>
+      <div class="start-button">
+        <button><a href="{% url "new" %}">Start a New Recording Now</a></button>
+      </div>
     </div>
   </div>
  
- {% csrf_token %}
-  {% for clip in clips %}
-  <a href="{% url "add" clip_id=clip.id %}"><p>{{clip.topic}}</p></a>
-  <audio src="{{clip.audio_file.url}}" controls></audio>
-  <p>Shareable Link to Add to Story: localhost:8000/audio/add/{{clip.id}}</p>
-  {% endfor %}
+  <div id="recent-sounds-background-container">
+    <div id="recent-sounds-container">
+      <h2>Recent Sounds</h2>
+      {% csrf_token %}
+      {% for clip in clips %}
+      <div class="recent-sound-listings">
+        <hr>
+        <h4 id="topic-label">Starting Topic:<a href="{% url "add" clip_id=clip.id %}">{{clip.topic}}</a></h4>
+        <div class="sound-listing-text">
+          <input readonly value="localhost:8000/audio/add/{{clip.id}}"></input>
+          <p>Share the above link to a friend to add to it!</p>
+        </div>
+        <div class="sound-listing-player">
+          <audio src="{{clip.audio_file.url}}" controls></audio>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div id="fake-footer"></div>
 </div>
 {% endblock %}

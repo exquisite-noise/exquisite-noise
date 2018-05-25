@@ -2,15 +2,22 @@
 {% load static %}
 
 {% block content %}
-<div class="add-new-audio container main-controls">
-  <h2>Start new story!</h2>
-  <canvas class="visualizer" height="60px"></canvas>
-  <p id="status-element"><span id="timer-indicator">Enter your topic and press record to begin</span></p>
-  <form method="post" enctype="multipart/form-data" id="new-audio-form">
-    {% csrf_token %}
-    {{ form.as_p }}
-  </form>
-  <button id="submit-override">Submit Audio</button>
+<div id="topic-background-container">
+  <div id="topic-container">
+    <h2>Start new story!</h2>
+    <h4 id="instruction-header">1. Enter a topic in the field below</h4>
+    <div class="add-new-audio container main-controls">
+      <canvas class="visualizer" height="60px"></canvas>
+      <form method="post" enctype="multipart/form-data" id="new-audio-form">
+        <p id="status-element"><span id="timer-indicator">This topic will be showed to everyone who constributes to you clip, what would you like them to have in mind when they record?</span></p>
+
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button id="submit-topic-button">Submit Topic</button>
+      </form>
+      <button id="submit-override">Submit Audio</button>
+    </div>
+  </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="{% static "recorder.js" %}"></script>
