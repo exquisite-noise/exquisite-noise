@@ -111,7 +111,7 @@ promise.then(function(stream) {
         recordButton.disabled = false;
         audioFile.value = data.id;
         audio.src = data.url;
-        window.location = '../link';
+        window.location = '../detail/4';
       },
       error: function(jqXHR, textStatus, errorThrown){
         uploadSpan.classList.add('hidden');
