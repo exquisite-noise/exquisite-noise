@@ -66,3 +66,4 @@ Endpoints:
 - github.com/jrief/django-sass-processor
 - github.com/voxy/django-audio-recorder
 - stackoverflow.com/questions/35825680/concatenate-audio-files-python-2-7
+- http://avatarmaker.com
