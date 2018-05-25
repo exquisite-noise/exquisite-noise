@@ -224,4 +224,10 @@ header {
     background-color: #F98E02;
     border-radius: 3px; }
 
+#topic-background-container #topic-container .add-new-audio audio {
+  text-align: center; }
+
+#prev-clip-player {
+  text-align: center; }
+
 /*# sourceMappingURL=../../../../../../../../static/_base.css.map */

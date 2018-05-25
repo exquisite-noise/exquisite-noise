@@ -33,7 +33,6 @@ promise.then(function(stream) {
     $(timerIndicator).text('Press record to start your 15 seconds. Re-record it as many times as you like before submitting.');
     $(recordButton).fadeIn();
     $(canvas).fadeIn();
-    $(audio).fadeIn();
   });
 
   recordButton.addEventListener('click', function(){
