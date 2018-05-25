@@ -2,7 +2,7 @@ var promise = navigator.mediaDevices.getUserMedia({audio: true, video: false});
 
 var recordButton = document.getElementById('js-record-button');
 var stopButton = document.getElementById('js-stop-button');
-var audio = document.getElementById('js-audio');
+var audio = document.querySelector('#js-audio');
 var uploadSpan = document.getElementById('js-upload-span');
 var audioFile = document.querySelectorAll('[data-django-audio-recorder]')[0];
 var submitOverride = document.getElementById('submit-override');
@@ -33,7 +33,6 @@ promise.then(function(stream) {
     $(timerIndicator).text('Press record to start your 15 seconds. Re-record it as many times as you like before submitting.');
     $(recordButton).fadeIn();
     $(canvas).fadeIn();
-    $(audio).fadeIn();
   });
 
   recordButton.addEventListener('click', function(){

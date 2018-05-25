@@ -50,8 +50,8 @@ table {
 
 body {
   font-family: Helvetica, sans-serif;
-  color: #000;
-  background-color: #7CDBD5; }
+  color: #222222;
+  background-color: #a7ecef; }
 
 h1 {
   font-size: 75px;
@@ -82,7 +82,7 @@ button {
   display: block;
   color: #fff;
   font-size: 20px;
-  background-color: #F98E02;
+  background-color: #f3545e;
   border-radius: 3px; }
 
 header {
@@ -101,7 +101,7 @@ header {
       margin-right: 15px; }
       header #left-block nav li a {
         text-decoration: none;
-        color: #000; }
+        color: #222222; }
   header #right-block {
     float: right;
     margin-right: 15px; }
@@ -111,7 +111,7 @@ header {
     header #right-block .start-button {
       color: #fff;
       font-size: 20px;
-      background-color: #F98E02;
+      background-color: #f3545e;
       margin-top: 3px; }
       header #right-block .start-button a {
         text-decoration: none;
@@ -137,7 +137,7 @@ header {
     #main-background-container #site-intro-container #site-description {
       margin-top: 60px; }
       #main-background-container #site-intro-container #site-description p {
-        color: #000;
+        color: #222222;
         font-size: 40px; }
     #main-background-container #site-intro-container .start-button {
       margin-top: 60px; }
@@ -147,7 +147,7 @@ header {
         display: block;
         color: #fff;
         font-size: 20px;
-        background-color: #F98E02;
+        background-color: #f3545e;
         border-radius: 3px; }
         #main-background-container #site-intro-container .start-button button a {
           text-decoration: none;
@@ -155,7 +155,7 @@ header {
 
 #recent-sounds-background-container {
   width: 100%;
-  background-color: #02C8A7;
+  background-color: #8cdce0;
   position: relative;
   height: 600px; }
   #recent-sounds-background-container #recent-sounds-container {
@@ -221,7 +221,13 @@ header {
     display: block;
     color: #fff;
     font-size: 20px;
-    background-color: #F98E02;
+    background-color: #f3545e;
     border-radius: 3px; }
 
-/*# sourceMappingURL=../../../../../../../../../../static/_base.css.map */
+#topic-background-container #topic-container .add-new-audio audio {
+  text-align: center; }
+
+#prev-clip-player {
+  text-align: center; }
+
+/*# sourceMappingURL=../../../../../../../../static/_base.css.map */
