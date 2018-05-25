@@ -1,7 +1,7 @@
 import os
 from .models import Audio, AudioAdd
 from django.conf import settings
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, TemplateView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from audio_recorder.views import AudioFileCreateViewMixin
@@ -124,4 +124,20 @@ class LinkView(TemplateView):
         context['story_link'] = f'localhost:8000/audio/add/{id}'
         context['story_id'] = id
         context['story_topic'] = Audio.objects.all().last().topic
+        return context
+
+
+class DetailStoryView(DetailView):
+    """Detail of a story."""
+
+    template_name = 'noise_audio/detail.html'
+    context_object_name = 'story'
+
+    def get_object(self):
+        """Get object."""
+        return Audio.objects.filter(id=self.kwargs['clip_id']).first()
+
+    def get_context_data(self, **kwargs):
+        """Customize context data."""
+        context = super().get_context_data(**kwargs)
         return context
