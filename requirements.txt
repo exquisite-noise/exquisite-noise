@@ -24,7 +24,6 @@ prompt-toolkit==1.0.15
 psycopg2-binary==2.7.4
 ptyprocess==0.5.2
 pydub==0.21.0
-pygame==1.9.3
 Pygments==2.2.0
 python-dateutil==2.7.3
 pytz==2018.4
