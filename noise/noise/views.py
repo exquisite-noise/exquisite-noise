@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import TemplateView, ListView
 from noise_audio.models import Audio
 
 
@@ -21,35 +21,28 @@ class HomeView(TemplateView):
         return context
 
 
-# class ProfileView(DetailView):
-#     """Detail of a profile."""
+class ProfileView(ListView):
+    """Detail of a profile."""
 
-#     template_name = 'generic/profile.html'
-#     context_object_name = 'profile'
+    template_name = 'generic/profile.html'
+    context_object_name = 'profile'
 
-#     def get_object(self):
-#         """Get object."""
-#         return Audio.objects.filter(creator__username=username).first()
+    def get_queryset(self):
+        """Get object."""
+        created = Audio.objects.filter(creator=self.kwargs['user_id'])
+        contributed = Audio.objects.filter(contributor=self.kwargs['user_id'])
+        return [created, contributed]
 
-#     def get_context_data(self, **kwargs):
-#         """Customize context data."""
-#         context = super().get_context_data(**kwargs)
-#         return context
+    def get_context_data(self, **kwargs):
+        """Customize context data."""
+        context = super().get_context_data(**kwargs)
+        context['created'] = context['profile'][0]
+        context['contributed'] = context['profile'][1]
+        del context['profile']
+        return context
 
 
 class AboutUsView(TemplateView):
     """About Us view class."""
 
     template_name = 'generic/about-us.html'
-
-    # def get_context_data(self, **kwargs):
-    #     """Get context."""
-    #     context = super().get_context_data(**kwargs)
-
-    #     context['beverly'] = 'static/beverly.png'
-    #     context['brandon'] = 'static/brandon.jpg'
-    #     context['tyler'] = 'static/tyler.jpg'
-    #     # context['github'] = 'static/githubicon.png'
-    #     context['linkedin'] = 'static/linkedinicon.png'
-
-    #     return context

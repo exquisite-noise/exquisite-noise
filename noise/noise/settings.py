@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'ffmpy',
     'noise',
     'noise_audio',
-    'noise_profile',
     'pydub',
     'pygame',
     'sass_processor',
