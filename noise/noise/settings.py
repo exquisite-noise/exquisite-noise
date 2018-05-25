@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'noise',
     'noise_audio',
     'pydub',
-    'pygame',
     'sass_processor',
 ]
 
