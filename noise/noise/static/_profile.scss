@@ -10,6 +10,15 @@
     width: 60%;
     height: 500px;
     margin: auto;
+    h4 {
+      margin: 15px;
+    }
+    ul {
+      margin: 15px;
+    }
+    li {
+      list-style: square;
+    }
 
     h2, p, input, h3 {
       text-align: center;
@@ -22,6 +31,4 @@
       margin : 30px auto;
     }
   }
-
-
 }

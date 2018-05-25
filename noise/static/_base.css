@@ -300,6 +300,12 @@ header {
     width: 60%;
     height: 500px;
     margin: auto; }
+    #profile-page-background #profile-page h4 {
+      margin: 15px; }
+    #profile-page-background #profile-page ul {
+      margin: 15px; }
+    #profile-page-background #profile-page li {
+      list-style: square; }
     #profile-page-background #profile-page h2, #profile-page-background #profile-page p, #profile-page-background #profile-page input, #profile-page-background #profile-page h3 {
       text-align: center;
       margin-top: 15px;

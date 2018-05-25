@@ -47,7 +47,7 @@ promise.then(function(stream) {
     var counter = setInterval(timer, 1000); //1000 will  run it every 1 second
     // window.setTimeout(buttonClick, 5000);
     // document.getElementById("timer-number").innerHTML = count;
-    var count = 18;
+    var count = 13;
 
     function timer(){
       count = count - 1;
@@ -58,14 +58,14 @@ promise.then(function(stream) {
         document.getElementById("timer-indicator").innerHTML = 'Listen below then re-record or submit.';
         return;
       }
-      if (count < 16) {
-        if (count === 15) {
+      if (count < 11) {
+        if (count === 10) {
           recorder.start();
           $(recordButton).text('Recording...');
         }
         document.getElementById("timer-indicator").innerHTML = '* Recording: ' + count + ' *';
       } else {
-        document.getElementById("timer-indicator").innerHTML = 'Recording will begin in ' + (count - 15) + '';
+        document.getElementById("timer-indicator").innerHTML = 'Recording will begin in ' + (count - 10) + '';
       }
     }
   });

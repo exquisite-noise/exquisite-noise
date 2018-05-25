@@ -1,4 +1,5 @@
 {% extends 'generic/base.html' %}
+{% load static %}
 
 {% block content %}
 <div id="detail-page-background">
@@ -11,6 +12,9 @@
     {% if story.date_published %}
     <p>Created: {{story.date_published}}</p>
     {% endif %}
+    <input readonly class="copy-link" value="https://{{host}}{% url "add" clip_id=story.id %}"></input>
+    <button class="copy-button">Copy</button>
   </div>
 </div>
+<script src="{% static "copy.js" %}"></script>
 {% endblock %}
