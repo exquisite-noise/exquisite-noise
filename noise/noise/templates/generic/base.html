@@ -16,7 +16,7 @@
         <ul>
           <li><a href="{% url "home" %}">Home</a></li>
           {% if user.is_authenticated %}
-          <li><a href="{% url "profile" %}">Profile</a></li>
+          <li><a href="{% url "about" %}">About Us</a></li>
           <li><a href="{% url "new" %}">New Story</a></li>
           {% if user.is_superuser %}
           <li><a href="{% url "admin:index" %}">Admin</a></li>
@@ -37,11 +37,11 @@
       <button class="start-button"><a href="{% url "registration_register" %}">Signup</a></button>
       <button class="start-button"><a href="{% url "auth_login" %}">Signin</a></button>
       {% endif %}
-      
+
     </div>
-    
+
   </header>
-  <main>    
+  <main>
     {% block content %}
     <h3>No Content</h3>
     {% endblock content%}
