@@ -14,9 +14,10 @@ class HomeView(TemplateView):
 
         clips = Audio.objects.all()[:3]
 
-        context = {
+        context.update({
+            'host': self.request.META['HTTP_HOST'],
             'clips': clips,
-        }
+        })
 
         return context
 
