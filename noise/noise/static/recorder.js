@@ -9,13 +9,17 @@ var submitOverride = document.getElementById('submit-override');
 var canvas = document.querySelector('.visualizer');
 var mainSection = document.querySelector('.main-controls');
 var timerIndicator = document.getElementById('timer-indicator');
+var submitTopicButton = document.getElementById('submit-topic-button');
+var instructionHeader = document.getElementById('instruction-header');
 var formData;
 var audioCtx = new (window.AudioContext || webkitAudioContext)();
 var canvasCtx = canvas.getContext('2d');
 
 $(submitOverride).hide();
+$(recordButton).hide();
 $(stopButton).hide();
 $(audio).hide();
+$(canvas).hide();
 
 promise.then(function(stream) {
   var recorder = new MediaRecorder(stream);
@@ -23,18 +27,28 @@ promise.then(function(stream) {
 
   visualize(stream);
 
-  recordButton.addEventListener("click", function(){
+  submitTopicButton.addEventListener('click', function() {
+    $(submitTopicButton).hide();
+    $(instructionHeader).text('2. Record your audio');
+    $(timerIndicator).text('Press record to start your 15 seconds. Re-record it as many times as you like before submitting.');
+    $(recordButton).fadeIn();
+    $(canvas).fadeIn();
+    $(audio).fadeIn();
+  });
+
+  recordButton.addEventListener('click', function(){
     recordButton.disabled = true;
     stopButton.disabled = false;
     audio.removeAttribute('src');
-    recorder.start();
+    // recorder.start();
     $(audio).hide();
     $(canvas).show();
-    $(timerIndicator).css('background-color', 'red');
+    $(timerIndicator).text('Recording will begin in 3');
+    $(timerIndicator).css('color', '#F53240');
     var counter = setInterval(timer, 1000); //1000 will  run it every 1 second
     // window.setTimeout(buttonClick, 5000);
     // document.getElementById("timer-number").innerHTML = count;
-    var count = 5;
+    var count = 8;
 
     function timer(){
       count = count - 1;
@@ -45,7 +59,14 @@ promise.then(function(stream) {
         document.getElementById("timer-indicator").innerHTML = 'Listen below then re-record or submit.';
         return;
       }
-      document.getElementById("timer-indicator").innerHTML = count + ' seconds left';
+      if (count < 6) {
+        if (count === 5) {
+          recorder.start();
+        }
+        document.getElementById("timer-indicator").innerHTML = '* Recording: ' + count + ' *';
+      } else {        
+        document.getElementById("timer-indicator").innerHTML = 'Recording will begin in ' + (count - 5) + '';
+      }
     }
   });
 
@@ -62,6 +83,8 @@ promise.then(function(stream) {
   };
 
   recorder.onstop = function(event) {
+    $(instructionHeader).text('3. Re-record or Submit!');
+    $(timerIndicator).text('Use the audio player below to review your clip and submit when you\'re ready.');
     var blob = new Blob(this.chunks, {'type': 'audio/mp3;'});
     this.chunks = [];
     var audioURL = window.URL.createObjectURL(blob);
@@ -119,7 +142,7 @@ function visualize(stream) {
   draw();
 
   function draw() {
-    const WIDTH = canvas.width
+    const WIDTH = canvas.width;
     const HEIGHT = canvas.height;
 
     requestAnimationFrame(draw);
@@ -141,7 +164,7 @@ function visualize(stream) {
     for(var i = 0; i < bufferLength; i++) {
 
       var v = dataArray[i] / 128.0;
-      var y = v * HEIGHT/2;
+      var y = v * HEIGHT / 2;
 
       if(i === 0) {
         canvasCtx.moveTo(x, y);
@@ -152,7 +175,7 @@ function visualize(stream) {
       x += sliceWidth;
     }
 
-    canvasCtx.lineTo(canvas.width, canvas.height/2);
+    canvasCtx.lineTo(canvas.width, canvas.height / 2);
     canvasCtx.stroke();
 
   }

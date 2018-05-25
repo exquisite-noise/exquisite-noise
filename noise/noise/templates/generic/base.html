@@ -15,9 +15,10 @@
       <nav>
         <ul>
           <li><a href="{% url "home" %}">Home</a></li>
+          <li><a href="{% url "about" %}">Meet the Devs</a></li>
           {% if user.is_authenticated %}
-          <li><a href="{% url "profile" %}">Profile</a></li>
           <li><a href="{% url "new" %}">New Story</a></li>
+          <li><a href="{% url "profile" user_id=user.id %}">Profile</a></li>
           {% if user.is_superuser %}
           <li><a href="{% url "admin:index" %}">Admin</a></li>
           {% endif %}
@@ -31,17 +32,16 @@
     </div>
     <div id="right-block">
       {% if user.is_authenticated %}
-      <span>Welcome {{ user.username }}</span>
-      <button class="start-button"><a href="{% url "new" %}">Start Recording</a></button>
+      <span>{{ user.username|title }}</span>
       {% else %}
       <button class="start-button"><a href="{% url "registration_register" %}">Signup</a></button>
       <button class="start-button"><a href="{% url "auth_login" %}">Signin</a></button>
       {% endif %}
-      
+
     </div>
-    
+
   </header>
-  <main>    
+  <main>
     {% block content %}
     <h3>No Content</h3>
     {% endblock content%}

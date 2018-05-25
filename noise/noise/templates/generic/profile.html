@@ -1,0 +1,22 @@
+{% extends 'generic/base.html' %}
+
+{% block content %}
+<div class="profile-page container">
+  <h3>{{ user.username }}'s Stories</h3>
+  <h4>Created</h4>
+  <ul>
+    {% for story in created %}
+    <li><a href="{% url "detail" clip_id=story.id %}">{{story.topic}}</a></li>
+    {% endfor %}
+  </ul>
+
+  <h4>Contributed</h4>
+  <ul>
+    {% for story in contributed %}
+    <li><a href="{% url "detail" clip_id=story.id %}">{{story.topic}}</a></li>
+    {% endfor %}
+  </ul>
+
+
+</div>
+{% endblock %}
