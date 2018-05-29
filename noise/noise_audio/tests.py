@@ -137,23 +137,25 @@ class AudioUnitTests(TestCase):
         response = continue_story_view(request, clip_id=1)
         self.assertEqual(response.status_code, 200)
 
-    # def test_link_view_has_content(self):
-    #     """Test link view."""
-    #     from noise_audio.views import LinkView
-    #     request = self.request.get('')
-    #     request.user = self.test_user
-    #     link_view = LinkView.as_view()
-    #     response = link_view(request)
-    #     self.assertEqual(response.status_code, 200)
+    def test_link_view_has_content(self):
+        """Test link view."""
+        from noise_audio.views import LinkView
+        request = self.request.get('')
+        request.user = self.test_user
+        request.META['HTTP_HOST'] = 'localhost:8000'
+        link_view = LinkView.as_view()
+        response = link_view(request)
+        self.assertEqual(response.status_code, 200)
 
-    # def test_detail_view(self):
-    #     """Test detail view."""
-    #     from noise_audio.views import DetailStoryView
-    #     request = self.request.get('')
-    #     request.user = self.test_user
-    #     detail_story_view = DetailStoryView.as_view()
-    #     response = detail_story_view(request, clip_id=1)
-    #     self.assertEqual(response.status_code, 200)
+    def test_detail_view(self):
+        """Test detail view."""
+        from noise_audio.views import DetailStoryView
+        request = self.request.get('')
+        request.user = self.test_user
+        request.META['HTTP_HOST'] = 'localhost:8000'
+        detail_story_view = DetailStoryView.as_view()
+        response = detail_story_view(request, clip_id=1)
+        self.assertEqual(response.status_code, 200)
 
     def test_profile_view(self):
         """Test profile view."""
