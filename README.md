@@ -10,11 +10,9 @@
 [![Build Status](https://travis-ci.org/exquisite-noise/exquisite-noise.svg?branch=master)](https://travis-ci.org/exquisite-noise/exquisite-noise) [![Coverage Status](https://coveralls.io/repos/github/exquisite-noise/exquisite-noise/badge.svg?branch=master)](https://coveralls.io/github/exquisite-noise/exquisite-noise?branch=master)
 
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for a Code Fellows 401 class. (i.e. What's your problem domain?) -->
-We wanted to create an application that combines our passion for open source collaboration and built off of games we played growing up. This is an interactive game where you create a topic and record a portion of a story. Once you're finished you will be provided with a link to send to your friends who can then add to the story.
+We wanted to create an application that combines our passion for open source collaboration and built off of games we played growing up. This is an interactive game where you create a topic and record a portion of a story. Once you're finished you will be provided with a link to send to your friends who can then add to the story, prompted only by the last 5 seconds of your story. The final result is a random funny story you can download or share with your friends for a good laugh.
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
 - Install ffmpeg (on Mac, run command `brew install ffmpeg --with-libvorbis --with-sdl2 --with-theora`)
 - Start a virtual environment
 - Add the following to your activate script:
@@ -27,25 +25,24 @@ We wanted to create an application that combines our passion for open source col
     export DB_PASSWORD=''
     export DB_HOST='localhost'
     ```
+    Note: secret key is obtained from settings.py when you start a Django project
 - Activate your virtual environment
 - Clone this repo onto your machine
 - Inside the directory, install the requirements `pip install -r requirements.txt`
 - Follow the directions to add an `audio_recorder` component from `https://github.com/voxy/django-audio-recorder`
 - Make a database called `noise`
-- Use command `noise/manage.py runserver` to start the server
 - Use command `noise/manage.py createsuperuser` to create an admin user
+- Use command `noise/manage.py runserver` to start the server
 - Open `localhost:8000` in your browser
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. This is also an area which you can include any visuals; flow charts, example usage gifs, screen captures, etc.-->
 Python 3, Django 2, CSS/SCSS, HTML, PostgreSQL, Travis CI, Coveralls, Pydub, Django-Audio-Recorder, Django Sass Processor
 
 ## API
-<!-- Provide detailed instructions for your applications usage. This should include any methods or endpoints available to the user/client/developer. Each section should be formatted to provide clear syntax for usage, example calls including input data requirements and options, and example responses or return values. -->
 Endpoints:
 - `audio/new/`: Create new story
 - `audio/add/<id>`: Add to an existing story
-- `audio/add/<id>`: Details of an existing story
+- `audio/detail/<id>`: Details of an existing story
 - `profile/<id>`: To view a user's stories
 - `accounts/login/`: Login
 - `accounts/register/`: Make an account
