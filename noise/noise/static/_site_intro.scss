@@ -1,0 +1,50 @@
+#main-background-container {
+  width: 100%;
+  // margin-top: 30px;
+  position: relative;
+  height: 800px;
+  #site-intro-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 500px;
+    margin: auto;
+    #site-name {
+      h1 {
+        line-height: 100px;
+        color: $coral;
+        text-align: center;
+        font-size: 80px;
+      }
+    }
+    
+    #site-description {
+      margin-top: 60px;
+      p {
+        color: $black;
+        font-size: 40px;
+      }
+    }
+    
+    .start-button {
+      margin-top: 60px;
+      // height: 60px;
+      button {
+        a {
+          text-decoration: none;
+          color: $white;
+        }
+        padding: 20px;
+        margin: 0 auto;
+        display: block;
+        color: $white;
+        font-size: $font * .4;
+        background-color: $golden;
+        border-radius: 3px;
+      }
+      
+    }
+  }
+}

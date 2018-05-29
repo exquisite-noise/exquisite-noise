@@ -1,0 +1,33 @@
+#topic-background-container {
+  width: 100%;
+  position: relative;
+  height: 800px;
+  #topic-container {
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    h4, p {
+      text-align: center;
+      margin: 15px 0px;
+    }
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 500px;
+    margin: auto;
+  }
+  button #submit-topic-button, button #submit-override {
+    text-decoration: none;
+    color: $white;
+    padding: 20px;
+    margin: 0 auto;
+    display: block;
+    color: $white;
+    font-size: $font * .4;
+    background-color: $golden;
+    border-radius: 3px;
+  }
+}

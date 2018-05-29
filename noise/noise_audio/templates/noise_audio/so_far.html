@@ -1,0 +1,25 @@
+{% extends 'generic/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="add-new-audio container main-controls">
+  <h2>Listen to what you've helped create!</h2>
+
+  {% if clip.topic %}
+  <h4>{{clip.topic}}</h4>
+  {% else %}
+  <h4>Untitled Story</h4>
+  {% endif %}
+
+  <audio src="{{clip.audio_file.url}}" controls></audio>
+
+  {% for user in users %}
+  <p>{{user.username}}</p>
+  <audio src="{{clip.audio_file.url}}" controls></audio>
+  {% endfor %}
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- <script src="{% static "recorder.js" %}"></script> -->
+<script src="{% static "csrf.js" %}"></script>
+{% endblock %}

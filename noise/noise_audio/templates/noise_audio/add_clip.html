@@ -1,0 +1,52 @@
+{% extends 'generic/base.html' %}
+{% load static %}
+
+{% block content %}
+<div id="topic-background-container">
+  <div id="topic-container">
+    <h2>Continue the Story!</h2>
+    <h4 id="instruction-header">Listen to the end of the clip you'll be continuing using the audio player. When your ready to record your continuation, press the button below.</h4>
+    <div class="add-new-audio container main-controls">
+
+      {% if story.topic %}
+      <h4>Topic: {{story.topic}}</h4>
+      {% endif %}
+
+      <canvas class="visualizer" height="60px"></canvas>
+      <p>
+        <audio id="prev-clip-player" src="{{snippet_url}}" controls></audio>
+      </p>
+      <form method="post" enctype="multipart/form-data" id="new-audio-form">
+        <p id="status-element"><span id="timer-indicator">...</span></p>
+
+        {% csrf_token %}
+        {{ form.as_p }}
+      </form>
+      <button id="submit-topic-button">Got it, let's go!</button>
+      <button id="submit-override">Submit Audio</button>
+    </div>
+  </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="{% static "recorderAdd.js" %}"></script>
+<script src="{% static "csrf.js" %}"></script>
+{% endblock %}
+ 
+
+<!-- <div class="add-new-audio container main-controls">
+  <h2>Play clip and continue the story!</h2>
+
+  {% if story.topic %}
+  <h4>{{story.topic}}</h4>
+  {% endif %}
+
+  <canvas class="visualizer" height="60px"></canvas>
+  <audio src="{{snippet_url}}" controls></audio>
+  <p id="status-element"><span id="timer-indicator">Enter your topic and press record to begin</span></p>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+  </form>
+  <button id="submit-override">Submit Audio</button>
+</div> -->

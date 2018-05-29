@@ -1,0 +1,39 @@
+language: python
+python:
+  - "3.6"
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c "create database noise;" -U postgres
+
+install:
+  - pip install -r requirements.txt
+  - pip install coveralls
+
+script:
+  - python noise/manage.py migrate
+  - coverage run noise/manage.py test noise
+
+after_success:
+  - coveralls
+
+notifications:
+  email: false
+
+
+language: python
+before_install:
+  - >
+    [ -f ffmpeg-release/ffmpeg ] || (
+        curl -O https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz &&
+        mkdir -p ffmpeg-release &&
+        tar Jxf ffmpeg-release-64bit-static.tar.xz --strip-components=1 -C ffmpeg-release
+    )
+
+script:
+  - export PATH=$(readlink -f ffmpeg-release):$PATH
+cache:
+  directories:
+    - ffmpeg-release

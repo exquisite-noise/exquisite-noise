@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+{% load static %}
+{% load sass_tags %}
+
+<html lang="en">
+<head>
+  <link href="{% sass_src '_base.scss' %}" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Lobster|Roboto" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <title>Exquisite Noise</title>
+</head>
+<body>
+  <header>
+    <div id="left-block">
+      <nav>
+        <ul>
+          <li><a href="{% url "home" %}">Home</a></li>
+          <li><a href="{% url "about" %}">Meet the Devs</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url "new" %}">New Story</a></li>
+          <li><a href="{% url "profile" user_id=user.id %}">Profile</a></li>
+          {% if user.is_superuser %}
+          <li><a href="{% url "admin:index" %}">Admin</a></li>
+          {% endif %}
+          <li><a href="{% url "auth_logout" %}">Logout</a></li>
+          {% else %}
+          <li><a href="{% url "registration_register" %}">Signup</a></li>
+          <li><a href="{% url "auth_login" %}">Signin</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+    <div id="right-block">
+      {% if user.is_authenticated %}
+      <span>{{ user.username|title }}</span>
+      {% else %}
+      <!-- <button class="start-button"><a href="{% url "registration_register" %}">Signup</a></button>
+      <button class="start-button"><a href="{% url "auth_login" %}">Signin</a></button> -->
+      {% endif %}
+
+    </div>
+
+  </header>
+  <main>
+    {% block content %}
+    <h3>No Content</h3>
+    {% endblock content%}
+  </main>
+</body>
+</html>

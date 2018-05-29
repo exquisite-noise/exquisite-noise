@@ -1,0 +1,48 @@
+header {
+  height: 35px;
+  background-color: $white;
+  #left-block {
+    width: 70%;
+    display: inline-block;
+    nav {
+      ul {
+        // text-align: center;
+        list-style-type: none;
+        margin-left: 15px;
+      }
+      
+      li {
+        display: inline;
+        // padding: 7px;
+        font-size: $font * .4;
+        line-height: 35px;
+        margin-right: 15px;
+        
+        a {
+          text-decoration: none;
+          color: $black;
+        }
+      }
+    }
+  }
+  #right-block {
+    float: right;
+    span {      
+      font-size: $font * .4;
+      line-height: 35px;
+    }
+    
+    .start-button {
+      a {
+        text-decoration: none;
+        color: $white;
+      }
+      color: $white;
+      font-size: $font * .4;
+      background-color: $golden;
+      margin-top: 3px;
+    }
+    margin-right: 15px
+  }
+}
+

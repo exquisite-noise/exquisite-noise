@@ -1,0 +1,49 @@
+#recent-sounds-background-container{
+  width: 100%;
+  background-color: $aquamarine;
+  // margin-top: 30px;
+  position: relative;
+  height: 600px;
+  #recent-sounds-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    h2 {
+      text-align: center;
+      color: $coral;
+    }
+    
+    .recent-sound-listings {
+      height: 80px;
+      margin-top: 30px;
+      margin-top: 30px;
+      hr {
+        width: 40%;
+      }
+      #topic-label {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .sound-listing-text {
+        width: 60%;
+        display: inline-block;
+        p {
+          color: $grey;
+        }
+        input {
+          width: 287px;
+          text-align: center;
+          margin-bottom: 10px;
+        }
+      }
+      .sound-listing-player {
+        width: 39%;
+        display: inline-block;      
+      }
+    }
+  }
+}

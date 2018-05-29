@@ -1,0 +1,27 @@
+#share-link-background {
+  width: 100%;
+  position: relative;
+  height: 800px;
+  #share-link-div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 500px;
+    margin: auto;
+
+    h2, p, input {
+      text-align: center;
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+    input {
+      width: 200px;
+      display: block;
+      margin : 30px auto;
+    }
+  }
+
+
+}
