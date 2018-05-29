@@ -6,7 +6,6 @@ import os
 from django.conf import settings
 
 
-# Create your tests here.
 class UserFactory(factory.django.DjangoModelFactory):
     """Test user."""
 
