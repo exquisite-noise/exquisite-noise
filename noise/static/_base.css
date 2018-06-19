@@ -232,20 +232,26 @@ header {
 
 .about-us h2 {
   margin-top: 50px;
-  margin-bottom: 30px; }
+  margin-bottom: 30px;
+  text-align: center; }
 
 .about-us section {
   width: 600px;
   margin-left: auto;
   margin-right: auto; }
-
-.about-us #profile-pic {
-  width: 400px;
-  display: block;
-  margin: auto; }
-
-.about-us a img {
-  width: 100px; }
+  .about-us section h3 {
+    text-align: center;
+    margin: 30px 0px 90px 0px; }
+  .about-us section .profile-pic {
+    width: 400px;
+    display: block;
+    margin: auto; }
+  .about-us section a {
+    width: 50px;
+    margin: auto; }
+  .about-us section img {
+    vertical-align: middle;
+    width: 50px; }
 
 #share-link-background {
   width: 100%;
