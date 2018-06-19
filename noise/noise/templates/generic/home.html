@@ -31,7 +31,7 @@
         <h4 id="topic-label">Starting Topic:<a href="{% url "add" clip_id=clip.id %}">{{clip.topic}}</a></h4>
         <div class="sound-listing-text">
           <p>Share the link below to a friend to add to it!</p>
-          <input readonly value="https://{{host}}{% url "add" clip_id=clip.id %}"/>
+          <input readonly value="{{host}}{% url "add" clip_id=clip.id %}"/>
         </div>
         <div class="sound-listing-player">
           <audio src="{{clip.audio_file.url}}" controls></audio>

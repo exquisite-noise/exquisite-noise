@@ -12,7 +12,7 @@
     {% if story.date_published %}
     <p>Created: {{story.date_published}}</p>
     {% endif %}
-    <input readonly class="copy-link" value="https://{{host}}{% url "add" clip_id=story.id %}"></input>
+    <input readonly class="copy-link" value="{{host}}{% url "add" clip_id=story.id %}"></input>
     <button class="copy-button">Copy</button>
   </div>
 </div>

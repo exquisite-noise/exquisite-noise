@@ -30,7 +30,7 @@ promise.then(function(stream) {
   submitTopicButton.addEventListener('click', function() {
     $(submitTopicButton).hide();
     $(instructionHeader).text('2. Record your audio');
-    $(timerIndicator).text('Press record to start your 15 seconds. Re-record it as many times as you like before submitting.');
+    $(timerIndicator).text('Press record to start your 10 seconds. Re-record it as many times as you like before submitting.');
     $(recordButton).fadeIn();
     $(canvas).fadeIn();
   });
