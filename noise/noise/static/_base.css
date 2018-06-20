@@ -45,6 +45,9 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
+body {
+  min-width: 800px; }
+
 .hidden {
   visibility: hidden; }
 
